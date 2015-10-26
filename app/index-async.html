@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <style>
     [ng-cloak] {
       display: none;
     }
   </style>
-  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
   <script>
     // include angular loader, which allows the files to load in any order
     //@@NG_LOADER_START@@
@@ -30,9 +30,11 @@
     $script([
       'bower_components/angular/angular.js',
       'bower_components/angular-route/angular-route.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'app.js',
-      'view1/view1.js',
-      'view2/view2.js',
+      'components/calibre/calibre.js',
+      'components/calibre/controllers.js',
+      'components/calibre/services.js',
       'components/version/version.js',
       'components/version/version-directive.js',
       'components/version/interpolate-filter.js'
@@ -41,18 +43,13 @@
       angular.bootstrap(document, ['myApp']);
     });
   </script>
-  <title>My AngularJS App</title>
+  <title>Calibre browser</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="app.css">
 </head>
 <body ng-cloak>
-  <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-  </ul>
-
   <div ng-view></div>
 
-  <div>Angular seed app: v<span app-version></span></div>
-
+  <div>Version: <span app-version></span></div>
 </body>
 </html>
