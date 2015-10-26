@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('myApp.calibre.controller', [])
+angular.module('myApp.calibre.controllers', [])
     .controller('BooksCtrl', ['$scope', '$http', 'apiService',
         function ($scope, $http, apiService) {
             var page = 1, limit = 25;

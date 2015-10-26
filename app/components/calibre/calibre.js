@@ -3,8 +3,8 @@
 angular.module('myApp.calibre',
     [
         'ngRoute',
-        'myApp.calibre.controller',
-        'myApp.calibre.service'
+        'myApp.calibre.controllers',
+        'myApp.calibre.services'
     ])
     .config(['$routeProvider',
         function ($routeProvider) {
@@ -15,7 +15,5 @@ angular.module('myApp.calibre',
             $routeProvider.when('/books/:id', {
                 templateUrl: 'components/calibre/book-detail.html',
                 controller: 'BookDetailCtrl'
-            }).otherwise({
-                redirectTo: '/books'
             });
         }]);

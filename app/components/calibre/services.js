@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('myApp.calibre.service', [])
+angular.module('myApp.calibre.services', [])
     .service('apiService', ['$http', function ($http) {
         this.getBooks = function (page, limit) {
             // Return promise for controller to use.
