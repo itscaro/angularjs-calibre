@@ -1,13 +1,17 @@
-<p>Cops</p>
-
-Search By Name: <input ng-model="search.title"><br/>
-Search By Language: <input ng-model="search.book.languagesName"><br/>
+Search: <input type="text" ng-model="searchall_query" ng-change="searchall()"><br/>
+<br/>
+Search By Name: <input type="text" ng-model="search.title"><br/>
+Search By Language: <input type="text" ng-model="search.book.languagesName"><br/>
 <ul>
-    <li ng-repeat="book in books | filter:search" data-id="{{book.book.id}}">
-        <img ng-if="book.book.hasCover == 1" ng-src="{{coverUrl(book.book.id, 100)}}">
+    <li ng-repeat="book in books | filter:search" data-id="{{book.id}}">
+        <img height="100" ng-if="book.coverUrl != null" ng-src="{{coverUrl(book.id, 100)}}">
         <span>{{book.title}}</span>
-        <span style="font-style: italic">{{book.book.languagesName}}</span>
-        <span>{{renderHTML(book.book.rating)}}</span>
+        <span>({{book.rating}})</span>
+        <span>{{book.authors}}</span>
+        <!--<span style="font-style: italic">{{book.book.languagesName}}</span>-->
+        <!--<span>{{renderHTML(book.book.rating)}}</span>-->
     </li>
 </ul>
+<button ng-click="page > 0 && loadPage(page = page - 1)" ng-init="page = 0">Prev</button>
+<button ng-click="loadPage(page = page + 1)" ng-init="page = 0">Next</button>
 <pre>{{books | json}}</pre>

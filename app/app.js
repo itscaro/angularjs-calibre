@@ -2,7 +2,7 @@
 
 function ApiService($http) {
     this.$http = $http;
-    this.url = "/api/cops/";
+    this.url = "/api/";
 };
 
 // Declare app level module which depends on views, and components
@@ -19,11 +19,7 @@ angular
         $routeProvider.otherwise({redirectTo: '/view1'});
     }]);
 
-ApiService.prototype.getBooks = function () {
+ApiService.prototype.getBooks = function (offset, limit) {
     // Return promise for controller to use.
-    return this.$http.get(this.url + 'getJSON.php?page=4&_')
-};
-ApiService.prototype.getBookCover = function (id) {
-    // Return promise for controller to use.
-    return this.$http.get(this.url + 'fetch.php?id=' + id + '&db=&_')
+    return this.$http.get(this.url + 'books/' + offset + '/' + limit)
 };
