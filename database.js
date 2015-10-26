@@ -119,6 +119,58 @@ module.exports = function (dsn) {
         }
     );
 
+    var Language = sequelize.define(
+        'language',
+        {
+            id: {
+                type: Sequelize.INTEGER,
+                primaryKey: true
+            },
+            lang_code: Sequelize.STRING
+        },
+        {
+            timestamps: false
+        }
+    );
+
+    var BookLanguage = sequelize.define(
+        'books_languages_link',
+        {
+            book: Sequelize.INTEGER,
+            lang_code: Sequelize.INTEGER
+        },
+        {
+            freezeTableName: true,
+            timestamps: false
+        }
+    );
+
+    var Tag = sequelize.define(
+        'tags',
+        {
+            id: {
+                type: Sequelize.INTEGER,
+                primaryKey: true
+            },
+            name: Sequelize.STRING
+        },
+        {
+            timestamps: false
+        }
+    );
+
+    var BookTag = sequelize.define(
+        'books_tags_link',
+        {
+            book: Sequelize.INTEGER,
+            tag: Sequelize.INTEGER
+        },
+        {
+            freezeTableName: true,
+            timestamps: false
+        }
+    );
+
     var Data = sequelize.define(
         'data',
         {
@@ -141,6 +193,12 @@ module.exports = function (dsn) {
 
     Book.belongsToMany(Rating, {through: BookRating, foreignKey: 'book'});
     Rating.belongsToMany(Book, {through: BookRating, foreignKey: 'rating'});
+
+    Book.belongsToMany(Language, {through: BookLanguage, foreignKey: 'book'});
+    Language.belongsToMany(Book, {through: BookLanguage, foreignKey: 'lang_code'});
+
+    Book.belongsToMany(Tag, {through: BookLanguage, foreignKey: 'book'});
+    Tag.belongsToMany(Book, {through: BookLanguage, foreignKey: 'lang_code'});
 
     Book.hasMany(Data, {foreignKey: 'book'});
 
