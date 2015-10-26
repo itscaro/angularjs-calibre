@@ -12,7 +12,7 @@ Search By Language: <input type="text" ng-model="search.book.languagesName"><br/
         <!--<span>{{renderHTML(book.book.rating)}}</span>-->
     </li>
 </ul>
-<button ng-click="page > 0 && loadPage(page = page - 1)" ng-init="page = 0">Prev</button>
-<button ng-click="loadPage(page = page + 1)" ng-init="page = 0">Next</button>
+<button ng-click="page > 1 && loadPage(page = page - 1)" ng-init="page = 1">Prev</button>
+<button ng-click="loadPage(page = page + 1)" ng-init="page = 1">Next</button>
 
 <pre>{{books | json}}</pre>

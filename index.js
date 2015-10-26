@@ -88,7 +88,7 @@ server.get([
     "/api/books/page/:page([0-9]+)",
     "/api/books/page/:page([0-9]+)/:limit([0-9]+)"
 ], function (req, res) {
-    var page = req.params.page < 1 ? req.params.page : 1,
+    var page = req.params.page > 1 ? req.params.page : 1,
         limit = req.params.limit ? req.params.limit : 10;
 
     var books = db.Book.findAll({
