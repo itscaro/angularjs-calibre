@@ -1,0 +1,8 @@
+<img height="100" ng-if="book.coverUrl != null" ng-src="{{coverUrl(book.id, 100)}}">
+<span>{{book.title}}</span>
+<span>({{book.rating}})</span>
+<span>{{book.authors}}</span>
+
+<br/>
+<a href="#/books" class="btn btn-primary">Back</a>
+<!--<span style="font-style: italic">{{book.book.languagesName}}</span>-->

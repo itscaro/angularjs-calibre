@@ -5,30 +5,20 @@ var Sequelize = require('sequelize');
 var lwip = require('lwip');
 
 var Config = {
+    server: {
+        host: '127.0.0.1',
+        port: '8099',
+
+    },
     calibre: {
         path: '/home/itscaro/Library'
     }
 };
 var db = require('./database.js')(Config.calibre.path + '/metadata.db');
 
-var apiForwardingUrl = 'http://book.itscaro.me/';
-
 var server = express();
-server.set('port', 8099);
+
 server.use(express.static(__dirname + '/app'));
-
-var apiProxy = httpProxy.createProxyServer();
-
-server.all("/api/cops/:path", function (req, res) {
-    var urlToCall = apiForwardingUrl + req.params.path + '?' + querystring.stringify(req.query)
-    console.log('Forwarding API requests to ' + urlToCall);
-
-    apiProxy.web(req, res, {
-        target: urlToCall,
-        ignorePath: true,
-        prependPath: true
-    });
-});
 
 server.get(
     "/api/books/:id([0-9]+)/cover.jpg",
@@ -49,13 +39,9 @@ server.get(
                 console.log('New image size', newWidth, newHeight);
                 console.log('New image ratio', 1 / Math.round(ratio));
 
-                // check err...
-                // manipulate image:
                 image.batch()
                     .scale(1 / Math.round(ratio, 1))
                     .toBuffer('jpg', function (err, buffer) {
-                        // check err...
-                        // save buffer to disk / send over network / etc.
                         res.send(buffer)
                     });
             });
@@ -66,12 +52,15 @@ server.get(
 
 server.get([
     "/api/books/",
-    "/api/books/:offset([0-9]+)",
-    "/api/books/:offset([0-9]+)/:limit([0-9]+)"
+    "/api/books/page/:page([0-9]+)",
+    "/api/books/page/:page([0-9]+)/:limit([0-9]+)"
 ], function (req, res) {
+    var page = req.params.page < 1 ? req.params.page : 1,
+        limit = req.params.limit ? req.params.limit : 10;
+
     var books = db.Book.findAll({
-        offset: req.params.offset ? req.params.offset : 0,
-        limit: req.params.limit ? req.params.limit : 10
+        offset: (page - 1) * limit,
+        limit: limit
     });
     books.then(function (books) {
         var promises = []
@@ -95,7 +84,7 @@ server.get([
             });
 
             if (book.has_cover) {
-                book.coverUrl = '/api/book/' + book.id + '/cover.jpg';
+                book.coverUrl = 'api/book/' + book.id + '/cover.jpg';
             } else {
                 book.coverUrl = null;
             }
@@ -128,7 +117,6 @@ server.get(
     }
 );
 
-
-server.listen(server.get('port'), function () {
-    console.log('Express server listening on port ' + server.get('port'));
+server.listen(Config.server.port, Config.server.host, function () {
+    console.log('Express server listening on ', Config.server.host, Config.server.port);
 });

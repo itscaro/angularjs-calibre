@@ -11,15 +11,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="app.css">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body>
+<body class="ng-cloak">
   <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-    <li><a href="#/phone">phone</a></li>
-    <li><a href="#/cops">cops</a></li>
+    <li><a href="#/calibre">Calibre</a></li>
   </ul>
 
   <!--[if lt IE 7]>
@@ -35,10 +34,11 @@
   -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="app.js"></script>
-  <script src="modules/view1/view1.js"></script>
-  <script src="modules/view2/view2.js"></script>
-  <script src="modules/cops/cops.js"></script>
+  <script src="components/calibre/calibre.js"></script>
+  <script src="components/calibre/controllers.js"></script>
+  <script src="components/calibre/services.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>

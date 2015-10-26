@@ -282,16 +282,12 @@ If you run this, you will get a cloned version of this repo to start working on 
 along with a CI service (in Jenkins) hosted that will run unit and end to end tests in both Firefox and Chrome.
 
 
-## Contact
+## Nginx as Proxy
 
-For more information on AngularJS please check out http://angularjs.org/
-
-[git]: http://git-scm.com/
-[bower]: http://bower.io
-[npm]: https://www.npmjs.org/
-[node]: http://nodejs.org
-[protractor]: https://github.com/angular/protractor
-[jasmine]: http://jasmine.github.io
-[karma]: http://karma-runner.github.io
-[travis]: https://travis-ci.org/
-[http-server]: https://github.com/nodeapps/http-server
+```
+server {
+       location /angular-calibre/ {
+               proxy_pass http://127.0.0.1:8099/;
+       }
+}
+```

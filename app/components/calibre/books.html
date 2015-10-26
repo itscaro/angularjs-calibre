@@ -5,7 +5,7 @@ Search By Language: <input type="text" ng-model="search.book.languagesName"><br/
 <ul>
     <li ng-repeat="book in books | filter:search" data-id="{{book.id}}">
         <img height="100" ng-if="book.coverUrl != null" ng-src="{{coverUrl(book.id, 100)}}">
-        <span>{{book.title}}</span>
+        <a href="#/books/{{book.id}}"><span>{{book.title}}</span></a>
         <span>({{book.rating}})</span>
         <span>{{book.authors}}</span>
         <!--<span style="font-style: italic">{{book.book.languagesName}}</span>-->
