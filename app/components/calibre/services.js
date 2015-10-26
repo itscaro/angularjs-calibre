@@ -14,4 +14,8 @@ angular.module('myApp.calibre.service', [])
         this.getBookCover = function (id, height) {
             return 'api/books/' + id + "/cover.jpg?height=" + height;
         };
+
+        this.getBookInFormat = function (id, format) {
+            return ('api/books/' + id + '/download/' + format).toLocaleLowerCase();
+        };
     }]);

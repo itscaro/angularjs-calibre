@@ -29,11 +29,14 @@ module.exports = function (dsn) {
         {
             timestamps: false,
             getterMethods: {
-                rating: function() {
+                rating: function () {
                     return this._rating
                 },
                 authors: function () {
                     return this._authors
+                },
+                data: function () {
+                    return this._data
                 },
                 coverUrl: function () {
                     if (this.has_cover) {
@@ -44,16 +47,20 @@ module.exports = function (dsn) {
                 }
             },
             setterMethods: {
-                rating: function(value) {
+                rating: function (value) {
                     this._rating = value;
-                    return this._rating
+                },
+                data: function (value) {
+                    if (typeof this._data == 'undefined') {
+                        this._data = []
+                    }
+                    this._data.push(value);
                 },
                 authors: function (value) {
                     if (typeof this._authors == 'undefined') {
                         this._authors = []
                     }
                     this._authors.push(value);
-                    return this._authors
                 }
             }
         }
@@ -112,12 +119,30 @@ module.exports = function (dsn) {
         }
     );
 
+    var Data = sequelize.define(
+        'data',
+        {
+            id: {
+                type: Sequelize.INTEGER,
+                primaryKey: true
+            },
+            book: Sequelize.INTEGER,
+            format: Sequelize.STRING,
+            name: Sequelize.STRING,
+            uncompressed_size: Sequelize.INTEGER
+        },
+        {
+            timestamps: false
+        }
+    );
+
     Book.belongsToMany(Author, {through: BookAuthor, foreignKey: 'book'});
     Author.belongsToMany(Book, {through: BookAuthor, foreignKey: 'author'});
 
     Book.belongsToMany(Rating, {through: BookRating, foreignKey: 'book'});
     Rating.belongsToMany(Book, {through: BookRating, foreignKey: 'rating'});
 
+    Book.hasMany(Data, {foreignKey: 'book'});
 
     module.Book = Book;
     module.Author = Author;

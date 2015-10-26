@@ -3,6 +3,13 @@
 <span>({{book.rating}})</span>
 <span>{{book.authors}}</span>
 
+<ul>
+    <li ng-repeat="format in book.data">
+        Format: <a class="btn btn-primary" ng-href="{{downloadUrl(book.id, format.format)}}"><span>{{format.format}}</span></a>
+    </li>
+</ul>
 <br/>
 <a href="#/books" class="btn btn-primary">Back</a>
 <!--<span style="font-style: italic">{{book.book.languagesName}}</span>-->
+
+<pre>{{book | json}}</pre>

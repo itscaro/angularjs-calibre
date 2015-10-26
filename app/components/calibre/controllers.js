@@ -31,6 +31,10 @@ angular.module('myApp.calibre.controller', [])
                 return apiService.getBookCover(id, height);
             };
 
+            $scope.downloadUrl = function(id, format) {
+                return apiService.getBookInFormat(id, format);
+            };
+
             $scope.renderHTML = function (html_code) {
                 //return angular.element('<textarea />').html(html_code).text();
             };

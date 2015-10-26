@@ -21,6 +21,39 @@ var server = express();
 server.use(express.static(__dirname + '/app'));
 
 server.get(
+    "/api/books/:id([0-9]+)/download/:format([a-z0-9]+)", function (req, res) {
+        console.log(req.params, req.query);
+
+        var format = req.params.format ? req.params.format : null,
+            file;
+
+        //var promises = [];
+        db.Book.findById(req.params.id).then(function (book) {
+            var promise = book.getData({
+                where: {
+                    format: format
+                }
+            });
+            //promises.push(promise);
+            promise.then(function (data) {
+                data.forEach(function (_data) {
+                    book.data = _data;
+                    file = {
+                        name: _data.name + '.' + _data.format.toLowerCase(),
+                        path: Config.calibre.path + '/' + book.path + '/' + _data.name + '.' + _data.format.toLowerCase()
+                    };
+                    console.log('Sending: ', file);
+                    res.download(file.path, file.name);
+                });
+            });
+        });
+
+        //Promise.all(promises).then(function () {
+        //});
+    }
+);
+
+server.get(
     "/api/books/:id([0-9]+)/cover.jpg",
     function (req, res) {
         console.log(req.params, req.query);
@@ -97,16 +130,24 @@ server.get([
 });
 
 server.get(
-    "/api/books/:id",
+    "/api/books/:id([0-9]+)",
     function (req, res) {
         var promise = db.Book.findById(req.params.id);
         promise.then(function (book) {
-            var promises = []
-            var promise = book.getAuthors();
+            var promises = [], promise;
+            promise = book.getAuthors();
             promises.push(promise);
             promise.then(function (authors) {
                 authors.forEach(function (author) {
                     book.authors = author.name
+                })
+            });
+
+            promise = book.getData();
+            promises.push(promise);
+            promise.then(function (data) {
+                data.forEach(function (_data) {
+                    book.data = _data
                 })
             });
 
