@@ -4,19 +4,12 @@ var Sequelize = require('sequelize');
 var lwip = require('lwip');
 var fs = require('fs');
 
-process.argv.forEach(function (val, index, array) {
-    console.log(index + ': ' + val);
-});
-var Config = {
-    server: {
-        host: '127.0.0.1',
-        port: '8099'
+//process.argv.forEach(function (val, index, array) {
+//    console.log(index + ': ' + val);
+//});
 
-    },
-    calibre: {
-        path: '/home/itscaro/Library'
-    }
-};
+var Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+
 var db = require('./database.js')(Config.calibre.path + '/metadata.db');
 
 var server = express();
