@@ -1,10 +1,12 @@
 'use strict'
 
 angular.module('myApp.calibre.controllers', [])
-    .controller('BooksCtrl', ['myAppConfig', '$scope', '$http', 'apiService',
-        function (config, $scope, $http, apiService) {
-            var page = 1, limit = 25;
+    .controller('BooksCtrl', ['myAppConfig', '$scope', '$routeParams', '$cookies', 'apiService',
+        function (config, $scope, $routeParams, $cookies, apiService) {
+            var page = parseInt($routeParams.page ? $routeParams.page : ($cookies.get('page') ? $cookies.get('page') : 1)),
+                limit = 24;
 
+            $scope.page = page;
             $scope.config = config;
 
             $scope.coverUrl = function (id, height) {
@@ -18,14 +20,13 @@ angular.module('myApp.calibre.controllers', [])
             };
 
             $scope.loadPage = function (page) {
+                $cookies.put('page', page)
                 apiService.getBooks(page, limit).success(function (data) {
                     $scope.books = data;
                 });
             };
 
-            apiService.getBooks(page, limit).success(function (data) {
-                $scope.books = data;
-            });
+            $scope.loadPage(page)
         }])
     .controller('BookDetailCtrl', ['myAppConfig', '$scope', '$routeParams', 'apiService',
         function (config, $scope, $routeParams, apiService) {
@@ -35,7 +36,7 @@ angular.module('myApp.calibre.controllers', [])
                 return apiService.getBookCover(id, height);
             };
 
-            $scope.downloadUrl = function(id, format) {
+            $scope.downloadUrl = function (id, format) {
                 return apiService.getBookInFormat(id, format);
             };
 

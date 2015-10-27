@@ -2,15 +2,23 @@ Search: <input type="text" ng-model="searchall_query" ng-change="searchall()"><b
 <br/>
 Search By Name: <input type="text" ng-model="search.title"><br/>
 Search By Language: <input type="text" ng-model="search.book.languagesName"><br/>
-<ul>
-    <li ng-repeat="book in books | filter:search" data-id="{{book.id}}">
-        <img height="100" ng-if="book.coverUrl != null" ng-src="{{coverUrl(book.id, 100)}}">
-        <a href="#/books/{{book.id}}"><span>{{book.title}}</span></a>
-        <span>({{book.rating}})</span>
-        <span>{{book.authors}}</span>
-        <!--<span style="font-style: italic">{{book.book.languagesName}}</span>-->
-        <!--<span>{{renderHTML(book.book.rating)}}</span>-->
-    </li>
-</ul>
-<button ng-click="page > 1 && loadPage(page = page - 1)" ng-init="page = 1">Prev</button>
-<button ng-click="loadPage(page = page + 1)" ng-init="page = 1">Next</button>
+
+<div class="row">
+    <div class="col-md-4 portfolio-item" style="height: 225px;" ng-repeat="book in books | filter:search"
+         data-id="{{book.id}}">
+        <div>
+            <a href="#/books/{{book.id}}">
+                <img height="100" ng-if="book.coverUrl != null" ng-src="{{coverUrl(book.id, 100)}}">
+            </a><br/>
+            <a href="#/books/{{book.id}}"><span>{{book.title}}</span></a>
+        </div>
+        <div>Authors: <span ng-repeat="author in book.authors">{{author}}</span></div>
+        <div ng-if="book.rating > 0">Rating: <span>({{book.rating}})</span></div>
+        <div ng-if="book.languages">Languages: <span ng-repeat="language in book.languages">{{language}}</span></div>
+    </div>
+</div>
+
+<div class="row">
+    <button ng-click="page > 1 && loadPage(page = page - 1)">Prev</button>
+    <button ng-click="loadPage(page = page + 1)">Next</button>
+</div>

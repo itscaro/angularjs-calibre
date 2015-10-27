@@ -3,6 +3,7 @@
 angular.module('myApp.calibre',
     [
         'ngRoute',
+        'ngCookies',
         'myApp.calibre.controllers',
         'myApp.calibre.services'
     ])

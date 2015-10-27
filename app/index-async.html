@@ -30,6 +30,7 @@
     $script([
       'bower_components/angular/angular.js',
       'bower_components/angular-route/angular-route.js',
+      'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'components/calibre/calibre.js',
       'components/calibre/controllers.js',
@@ -48,8 +49,13 @@
   <link rel="stylesheet" href="app.css">
 </head>
 <body ng-cloak>
-  <div ng-view></div>
+<header>
+  <a class="btn btn-primary" href="#/books">Home</a>
+</header>
+<div ng-view></div>
 
+<footer>
   <div>Version: <span app-version></span></div>
+</footer>
 </body>
 </html>

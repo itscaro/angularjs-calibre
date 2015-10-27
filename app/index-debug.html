@@ -22,30 +22,36 @@
   </script>
 </head>
 <body class="ng-cloak">
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+<header>
+    <a class="btn btn-primary" href="#/books">Home</a>
+</header>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
 
-  <div ng-view></div>
+<div ng-view></div>
 
-  <div>Version: <span app-version></span></div>
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="components/debug/debug.js"></script>
-  <script src="components/calibre/calibre.js"></script>
-  <script src="components/calibre/controllers.js"></script>
-  <script src="components/calibre/services.js"></script>
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
-  <script src="app.js"></script>
-  <div ng-controller="DebugCtrl">
+<footer>
+    <div>Version: <span app-version></span></div>
+</footer>
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="components/debug/debug.js"></script>
+<script src="components/calibre/calibre.js"></script>
+<script src="components/calibre/controllers.js"></script>
+<script src="components/calibre/services.js"></script>
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+<script src="app.js"></script>
+<div ng-controller="DebugCtrl">
     <pre>{{data | json}}</pre>
-  </div>
+</div>
 </body>
 </html>

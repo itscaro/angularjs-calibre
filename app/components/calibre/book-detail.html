@@ -1,13 +1,13 @@
-<img height="100" ng-if="book.coverUrl != null" ng-src="{{coverUrl(book.id, 100)}}">
+<img height="100" ng-if="book.coverUrl != null" ng-src="{{coverUrl(book.id, 100)}}"><br/>
 <span>{{book.title}}</span>
-<span>({{book.rating}})</span>
-<span>{{book.authors}}</span>
+<div>Authors: <span ng-repeat="author in book.authors">{{author}}</span></div>
+<div ng-if="book.rating > 0">Rating: <span>({{book.rating}})</span></div>
+<div ng-if="book.languages">Languages: <span ng-repeat="language in book.languages">{{language}}</span></div>
 
-<ul>
+<ul class="list-inline">
     <li ng-repeat="format in book.data">
-        Format: <a class="btn btn-primary" ng-href="{{downloadUrl(book.id, format.format)}}"><span>{{format.format}}</span></a>
+        <a class="btn btn-primary" ng-href="{{downloadUrl(book.id, format.format)}}"><span>{{format.format}}</span></a>
     </li>
 </ul>
 <br/>
-<a href="#/books" class="btn btn-primary">Back</a>
 <!--<span style="font-style: italic">{{book.book.languagesName}}</span>-->

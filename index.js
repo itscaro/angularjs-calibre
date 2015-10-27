@@ -2,6 +2,8 @@ var express = require('express');
 var querystring = require('querystring');
 var Sequelize = require('sequelize');
 var lwip = require('lwip');
+var fs = require('fs');
+
 process.argv.forEach(function (val, index, array) {
     console.log(index + ': ' + val);
 });
@@ -58,28 +60,47 @@ server.get(
     "/api/books/:id([0-9]+)/cover.jpg",
     function (req, res) {
         console.log(req.params, req.query);
+        var newHeight = req.query.height ? req.query.height : 100;
 
         var promise = db.Book.findById(req.params.id);
         promise.then(function (book) {
-            console.log('Sending: ' + Config.calibre.path + '/' + book.path + '/cover.jpg');
+            var originalCover = Config.calibre.path + '/' + book.path + '/cover.jpg',
+                cachedCover = 'cache/' + book.id + '-' + newHeight + '.jpg';
 
-            lwip.open(Config.calibre.path + '/' + book.path + '/cover.jpg', function (err, image) {
-                console.log('Image size', image.width(), image.height());
+            console.log('Sending: ', originalCover, cachedCover);
 
-                var newHeight = req.query.height ? req.query.height : 100,
-                    ratio = image.height() / newHeight,
-                    newWidth = Math.round(image.width() / ratio);
+            try {
+                fs.accessSync('cache', fs.R_OK | fs.W_OK)
+            }
+            catch (e) {
+                fs.mkdirSync('cache');
+            }
 
-                console.log('New image size', newWidth, newHeight);
-                console.log('New image ratio', 1 / Math.round(ratio));
+            res.setHeader("Cache-Control", "public, max-age=" + 30 * 86400);
+            res.setHeader("Expires", new Date(Date.now() + (30 * 86400000)).toUTCString());
+            if (fs.exists(cachedCover)) {
+                res.download(cachedCover)
+            } else {
+                lwip.open(originalCover, function (err, image) {
+                    console.log('Image size', image.width(), image.height());
 
-                image.batch()
-                    .scale(1 / Math.round(ratio, 1))
-                    .toBuffer('jpg', function (err, buffer) {
-                        res.send(buffer)
-                    });
-            });
-            //res.download(Config.calibre.path + '/' + book.path + '/' + 'cover.jpg', '3-cover.jpg');
+                    var ratio = image.height() / newHeight,
+                        newWidth = Math.round(image.width() / ratio);
+
+                    console.log('New image size', newWidth, newHeight);
+                    console.log('New image ratio', 1 / Math.round(ratio));
+
+                    image.batch()
+                        .scale(1 / Math.round(ratio, 1))
+                        .writeFile(cachedCover, function (err, buffer) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                res.download(cachedCover)
+                            }
+                        })
+                });
+            }
         });
     }
 );
