@@ -15,6 +15,11 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="app.css">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+  <script>
+    var Config = {
+      debug: true
+    };
+  </script>
 </head>
 <body class="ng-cloak">
   <!--[if lt IE 7]>
@@ -31,6 +36,7 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="components/debug/debug.js"></script>
   <script src="components/calibre/calibre.js"></script>
   <script src="components/calibre/controllers.js"></script>
   <script src="components/calibre/services.js"></script>
@@ -38,5 +44,8 @@
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
   <script src="app.js"></script>
+  <div ng-controller="DebugCtrl">
+    <pre>{{data | json}}</pre>
+  </div>
 </body>
 </html>

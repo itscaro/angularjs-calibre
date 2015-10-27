@@ -1,9 +1,11 @@
 'use strict'
 
 angular.module('myApp.calibre.controllers', [])
-    .controller('BooksCtrl', ['$scope', '$http', 'apiService',
-        function ($scope, $http, apiService) {
+    .controller('BooksCtrl', ['myAppConfig', '$scope', '$http', 'apiService',
+        function (config, $scope, $http, apiService) {
             var page = 1, limit = 25;
+
+            $scope.config = config;
 
             $scope.coverUrl = function (id, height) {
                 return apiService.getBookCover(id, height);
@@ -25,8 +27,10 @@ angular.module('myApp.calibre.controllers', [])
                 $scope.books = data;
             });
         }])
-    .controller('BookDetailCtrl', ['$scope', '$routeParams', 'apiService',
-        function ($scope, $routeParams, apiService) {
+    .controller('BookDetailCtrl', ['myAppConfig', '$scope', '$routeParams', 'apiService',
+        function (config, $scope, $routeParams, apiService) {
+            $scope.config = config;
+
             $scope.coverUrl = function (id, height) {
                 return apiService.getBookCover(id, height);
             };

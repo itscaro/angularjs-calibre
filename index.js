@@ -1,13 +1,14 @@
 var express = require('express');
-var httpProxy = require('http-proxy');
 var querystring = require('querystring');
 var Sequelize = require('sequelize');
 var lwip = require('lwip');
-
+process.argv.forEach(function (val, index, array) {
+    console.log(index + ': ' + val);
+});
 var Config = {
     server: {
         host: '127.0.0.1',
-        port: '8099',
+        port: '8099'
 
     },
     calibre: {
