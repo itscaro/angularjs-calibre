@@ -41,7 +41,7 @@ server.get(
                         name: _data.name + '.' + _data.format.toLowerCase(),
                         path: Config.calibre.path + '/' + book.path + '/' + _data.name + '.' + _data.format.toLowerCase()
                     };
-                    console.log('Sending: ', file);
+                    console.log('Sending: ', JSON.stringify(file));
                     res.download(file.path, file.name);
                 });
             });
@@ -60,10 +60,12 @@ server.get(
 
         var promise = db.Book.findById(req.params.id);
         promise.then(function (book) {
-            var originalCover = Config.calibre.path + '/' + book.path + '/cover.jpg',
-                cachedCover = 'cache/' + book.id + '-' + newHeight + '.jpg';
+            var cover = {
+                original: Config.calibre.path + '/' + book.path + '/cover.jpg',
+                cached: 'cache/' + book.id + '-' + newHeight + '.jpg'
+            };
 
-            console.log('Sending: ', originalCover, cachedCover);
+            console.log('Sending: ', JSON.stringify(cover));
 
             try {
                 fs.accessSync('cache', fs.R_OK | fs.W_OK)
@@ -74,10 +76,10 @@ server.get(
 
             res.setHeader("Cache-Control", "public, max-age=" + 30 * 86400);
             res.setHeader("Expires", new Date(Date.now() + (30 * 86400000)).toUTCString());
-            if (fs.exists(cachedCover)) {
-                res.download(cachedCover)
+            if (fs.exists(cover.cached)) {
+                res.download(cover.cached)
             } else {
-                lwip.open(originalCover, function (err, image) {
+                lwip.open(cover.original, function (err, image) {
                     console.log('Image size', image.width(), image.height());
 
                     var ratio = image.height() / newHeight,
@@ -88,11 +90,11 @@ server.get(
 
                     image.batch()
                         .scale(1 / Math.round(ratio, 1))
-                        .writeFile(cachedCover, function (err, buffer) {
+                        .writeFile(cover.cached, function (err, buffer) {
                             if (err) {
                                 console.log(err);
                             } else {
-                                res.download(cachedCover)
+                                res.download(cover.cached)
                             }
                         })
                 });

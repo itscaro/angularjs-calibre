@@ -1,10 +1,10 @@
 module.exports = function (dsn) {
-    console.log(dsn);
     var module = {};
 
     var Sequelize = require('sequelize');
 
     sequelize = new Sequelize('', '', '', {
+        logging: false,
         dialect: 'sqlite',
         // SQLite only
         storage: dsn
