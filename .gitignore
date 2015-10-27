@@ -1,3 +1,4 @@
+/metadata.db
 /config.json
 logs/*
 !.gitkeep

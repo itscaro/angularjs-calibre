@@ -14,14 +14,16 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
             };
 
             $scope.searchall = function () {
-                apiService.getBooks(page, limit).success(function (data) {
+                page = 1;
+                $cookies.put('page', page);
+                apiService.getBooks(page, limit, null, $scope.searchall_query).success(function (data) {
                     $scope.books = data;
                 });
             };
 
             $scope.loadPage = function (page) {
-                $cookies.put('page', page)
-                apiService.getBooks(page, limit).success(function (data) {
+                $cookies.put('page', page);
+                apiService.getBooks(page, limit, null, $scope.searchall_query).success(function (data) {
                     $scope.books = data;
                 });
             };
@@ -56,12 +58,11 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
                 $scope.book = data;
             });
         }])
-    .directive('reader', ['apiService', function (apiService) {
-        return function (scope, elm, attrs) {
-            var url = apiService.getBookInFormat(attrs.bookId, attrs.bookFormat);
-            scope.Book = ePub((url + '.' + attrs.bookFormat).toLocaleLowerCase());
-            scope.Book.renderTo(elm[0]);
-        };
-    }]);
-
-;
+    .directive('reader', ['apiService',
+        function (apiService) {
+            return function (scope, elm, attrs) {
+                var url = apiService.getBookInFormat(attrs.bookId, attrs.bookFormat);
+                scope.Book = ePub((url + '.' + attrs.bookFormat).toLocaleLowerCase());
+                scope.Book.renderTo(elm[0]);
+            };
+        }]);

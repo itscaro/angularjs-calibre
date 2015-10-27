@@ -2,9 +2,19 @@
 
 angular.module('myApp.calibre.services', [])
     .service('apiService', ['$rootScope', '$http', function ($rootScope, $http) {
-        this.getBooks = function (page, limit) {
+        this.getBooks = function (page, limit, order, search) {
             // Return promise for controller to use.
-            var _return = $http.get('api/books/page/' + page + '/' + limit);
+            if (search) {
+                search = '?title=' + search
+            } else {
+                search = ''
+            }
+            if (order) {
+                order = '?order=' + order
+            } else {
+                order = ''
+            }
+            var _return = $http.get('api/books/page/' + page + '/' + limit + search + order);
 
             $rootScope.$broadcast('DEBUG', _return);
 

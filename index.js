@@ -110,11 +110,28 @@ server.get(
         "/api/books/page/:page([0-9]+)/:limit([0-9]+)"
     ], function (req, res) {
         var page = req.params.page > 1 ? req.params.page : 1,
-            limit = req.params.limit ? req.params.limit : 10;
+            limit = req.params.limit ? req.params.limit : 10,
+            sqlWhere, sqlOrder;
+
+        if (req.query.title) {
+            sqlWhere = {
+                title: {
+                    $like: '%' + req.query.title + '%'
+                }
+            }
+        }
+
+        if (req.query.order) {
+            sqlOrder = req.query.order
+        } else {
+            sqlOrder = 'DESC'
+        }
 
         var books = db.Book.findAll({
             offset: (page - 1) * limit,
-            limit: limit
+            limit: limit,
+            where: sqlWhere,
+            order: 'id ' + sqlOrder
         });
         books.then(function (books) {
             var promises = []

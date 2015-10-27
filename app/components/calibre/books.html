@@ -1,11 +1,21 @@
-Search: <input type="text" ng-model="searchall_query" ng-change="searchall()"><br/>
-<br/>
-Search By Name: <input type="text" ng-model="search.title"><br/>
-Search By Language: <input type="text" ng-model="search.book.languagesName"><br/>
+<section class="row">
+    <form ng-submit="searchall()">
+        Search: <input type="text" ng-model="searchall_query">
+        <button class="btn btn-primary">Search</button>
+    </form>
+    <br/> <br/>
+    Search By Name: <input type="text" ng-model="search.title"><br/>
+    Search By Language: <input type="text" ng-model="search.book.languagesName"><br/>
+</section>
 
-<div class="row">
-    <div class="col-md-4 portfolio-item" style="height: 225px;" ng-repeat="book in books | filter:search"
-         data-id="{{book.id}}">
+<section class="row">
+    <i class="material-icons pointer" ng-click="page > 1 && loadPage(page = page - 1)">&#xE408;</i>
+    <i class="material-icons pointer" ng-click="loadPage(page = page + 1)">&#xE409;</i>
+</section>
+
+<section class="row">
+    <article class="col-md-4 portfolio-item" style="height: 225px;" ng-repeat="book in books | filter:search"
+             data-id="{{book.id}}">
         <div>
             <a href="#/books/{{book.id}}">
                 <img height="100" ng-if="book.coverUrl != null" ng-src="{{coverUrl(book.id, 100)}}">
@@ -15,10 +25,10 @@ Search By Language: <input type="text" ng-model="search.book.languagesName"><br/
         <div>Authors: <span ng-repeat="author in book.authors">{{author}}</span></div>
         <div ng-if="book.rating > 0">Rating: <span>({{book.rating}})</span></div>
         <div ng-if="book.languages">Languages: <span ng-repeat="language in book.languages">{{language}}</span></div>
-    </div>
-</div>
+    </article>
+</section>
 
-<div class="row">
-    <button ng-click="page > 1 && loadPage(page = page - 1)">Prev</button>
-    <button ng-click="loadPage(page = page + 1)">Next</button>
-</div>
+<section class="row">
+    <i class="material-icons pointer" ng-click="page > 1 && loadPage(page = page - 1)">&#xE408;</i>
+    <i class="material-icons pointer" ng-click="loadPage(page = page + 1)">&#xE409;</i>
+</section>

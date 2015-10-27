@@ -11,11 +11,7 @@ try {
             'myApp.calibre',
             'myApp.version',
             'myApp.debug'
-        ])
-        .config(['$routeProvider', function ($routeProvider) {
-            $routeProvider.otherwise({redirectTo: '/books'});
-        }])
-        .value('myAppConfig', typeof Config == 'undefined' ? {} : Config);
+        ]);
 } catch (err) {
     myApp = angular
         .module('myApp', [
@@ -23,10 +19,18 @@ try {
             'ui.bootstrap',
             'myApp.calibre',
             'myApp.version'
-        ])
-        .config(['$routeProvider', function ($routeProvider) {
-            $routeProvider.otherwise({redirectTo: '/books'});
-        }])
-        .value('myAppConfig', typeof Config == 'undefined' ? {} : Config);
+        ]);
 }
 
+myApp
+    .value('myAppConfig', typeof Config == 'undefined' ? {} : Config)
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.otherwise({redirectTo: '/books'});
+    }])
+    .run(['$rootScope', 'ngDialog', function ($rootScope, $dialog) {
+        $rootScope.about = function () {
+            $dialog.open({
+                template: 'components/calibre/about.html'
+            })
+        }
+    }]);

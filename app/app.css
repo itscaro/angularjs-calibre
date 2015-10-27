@@ -29,6 +29,10 @@
   padding: 0;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 /* reader */
 #area {
   min-width: 400px;
@@ -53,8 +57,6 @@
   margin-top: -32px;
   font-size: 64px;
   color: #E2E2E2;
-  font-family: arial, sans-serif;
-  font-weight: bold;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
