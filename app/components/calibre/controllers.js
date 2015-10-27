@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('myApp.calibre.controllers', [])
+angular.module('myApp.calibre.controllers', ['ngDialog'])
     .controller('BooksCtrl', ['myAppConfig', '$scope', '$routeParams', '$cookies', 'apiService',
         function (config, $scope, $routeParams, $cookies, apiService) {
             var page = parseInt($routeParams.page ? $routeParams.page : ($cookies.get('page') ? $cookies.get('page') : 1)),
@@ -28,8 +28,8 @@ angular.module('myApp.calibre.controllers', [])
 
             $scope.loadPage(page)
         }])
-    .controller('BookDetailCtrl', ['myAppConfig', '$scope', '$routeParams', 'apiService',
-        function (config, $scope, $routeParams, apiService) {
+    .controller('BookDetailCtrl', ['myAppConfig', '$scope', '$routeParams', 'apiService', 'ngDialog',
+        function (config, $scope, $routeParams, apiService, $dialog) {
             $scope.config = config;
 
             $scope.coverUrl = function (id, height) {
@@ -40,11 +40,28 @@ angular.module('myApp.calibre.controllers', [])
                 return apiService.getBookInFormat(id, format);
             };
 
-            $scope.renderHTML = function (html_code) {
-                //return angular.element('<textarea />').html(html_code).text();
+            $scope.read = function (id, format) {
+                $dialog.open({
+                    template: 'components/calibre/reader.html',
+                    controller: ['$scope', function ($scope) {
+                        $scope.data = {
+                            id: id,
+                            format: format
+                        };
+                    }]
+                });
             };
 
             apiService.getBook($routeParams.id).success(function (data) {
                 $scope.book = data;
             });
-        }]);
+        }])
+    .directive('reader', ['apiService', function (apiService) {
+        return function (scope, elm, attrs) {
+            var url = apiService.getBookInFormat(attrs.bookId, attrs.bookFormat);
+            scope.Book = ePub((url + '.' + attrs.bookFormat).toLocaleLowerCase());
+            scope.Book.renderTo(elm[0]);
+        };
+    }]);
+
+;

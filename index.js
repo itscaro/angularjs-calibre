@@ -17,7 +17,10 @@ var server = express();
 server.use(express.static(__dirname + '/app'));
 
 server.get(
-    "/api/books/:id([0-9]+)/download/:format([a-z0-9]+)", function (req, res) {
+    [
+        "/api/books/:id([0-9]+)/download/:format([a-z0-9]+)",
+        "/api/books/:id([0-9]+)/download/:format([a-z0-9]+).([a-z0-9]+)"
+    ], function (req, res) {
         console.log(req.params, req.query);
 
         var format = req.params.format ? req.params.format : null,
@@ -98,51 +101,52 @@ server.get(
     }
 );
 
-server.get([
-    "/api/books/",
-    "/api/books/page/:page([0-9]+)",
-    "/api/books/page/:page([0-9]+)/:limit([0-9]+)"
-], function (req, res) {
-    var page = req.params.page > 1 ? req.params.page : 1,
-        limit = req.params.limit ? req.params.limit : 10;
+server.get(
+    [
+        "/api/books/",
+        "/api/books/page/:page([0-9]+)",
+        "/api/books/page/:page([0-9]+)/:limit([0-9]+)"
+    ], function (req, res) {
+        var page = req.params.page > 1 ? req.params.page : 1,
+            limit = req.params.limit ? req.params.limit : 10;
 
-    var books = db.Book.findAll({
-        offset: (page - 1) * limit,
-        limit: limit
-    });
-    books.then(function (books) {
-        var promises = []
-
-        books.forEach(function (book) {
-            var promise;
-            promise = book.getAuthors();
-            promises.push(promise);
-            promise.then(function (authors) {
-                authors.forEach(function (author) {
-                    book.authors = author.name
-                })
-            });
-
-            promise = book.getRatings();
-            promises.push(promise);
-            promise.then(function (ratings) {
-                ratings.forEach(function (rating) {
-                    book.rating = rating.rating
-                })
-            });
-
-            if (book.has_cover) {
-                book.coverUrl = 'api/book/' + book.id + '/cover.jpg';
-            } else {
-                book.coverUrl = null;
-            }
+        var books = db.Book.findAll({
+            offset: (page - 1) * limit,
+            limit: limit
         });
+        books.then(function (books) {
+            var promises = []
 
-        Promise.all(promises).then(function () {
-            res.json(books);
-        })
+            books.forEach(function (book) {
+                var promise;
+                promise = book.getAuthors();
+                promises.push(promise);
+                promise.then(function (authors) {
+                    authors.forEach(function (author) {
+                        book.authors = author.name
+                    })
+                });
+
+                promise = book.getRatings();
+                promises.push(promise);
+                promise.then(function (ratings) {
+                    ratings.forEach(function (rating) {
+                        book.rating = rating.rating
+                    })
+                });
+
+                if (book.has_cover) {
+                    book.coverUrl = 'api/book/' + book.id + '/cover.jpg';
+                } else {
+                    book.coverUrl = null;
+                }
+            });
+
+            Promise.all(promises).then(function () {
+                res.json(books);
+            })
+        });
     });
-});
 
 server.get(
     "/api/books/:id([0-9]+)",

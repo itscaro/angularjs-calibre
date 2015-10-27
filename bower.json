@@ -9,6 +9,7 @@
     "angular-route": "~1.4.0",
     "html5-boilerplate": "~5.2.0",
     "angular": "angularjs#~1.4.7",
-    "angular-cookies": "~1.4.7"
+    "angular-cookies": "~1.4.7",
+    "ng-dialog": "~0.5.5"
   }
 }

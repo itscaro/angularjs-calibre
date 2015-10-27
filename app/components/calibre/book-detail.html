@@ -4,10 +4,18 @@
 <div ng-if="book.rating > 0">Rating: <span>({{book.rating}})</span></div>
 <div ng-if="book.languages">Languages: <span ng-repeat="language in book.languages">{{language}}</span></div>
 
+Read<br/>
+<ul class="list-inline">
+    <li ng-repeat="format in book.data">
+        <a class="btn btn-primary" ng-click="read(book.id, format.format)"><span>{{format.format}}</span></a>
+    </li>
+</ul>
+
+Download<br/>
 <ul class="list-inline">
     <li ng-repeat="format in book.data">
         <a class="btn btn-primary" ng-href="{{downloadUrl(book.id, format.format)}}"><span>{{format.format}}</span></a>
     </li>
 </ul>
-<br/>
+
 <!--<span style="font-style: italic">{{book.book.languagesName}}</span>-->

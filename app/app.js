@@ -17,7 +17,6 @@ try {
         }])
         .value('myAppConfig', typeof Config == 'undefined' ? {} : Config);
 } catch (err) {
-    console.log(err.message)
     myApp = angular
         .module('myApp', [
             'ngRoute',
