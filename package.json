@@ -1,10 +1,10 @@
 {
-  "name": "angular-seed",
+  "name": "angularjs-calibre",
   "private": true,
   "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
-  "license": "MIT",
+  "description": "Calibre browser with AngularJS & NodeJS",
+  "repository": "https://github.com/itscaro/angularjs-calibre",
+  "license": "GNU v2",
   "devDependencies": {
     "bower": "^1.3.1",
     "http-server": "^0.6.1",
@@ -20,7 +20,7 @@
   "scripts": {
     "postinstall": "bower install",
     "prestart": "npm install",
-    "start": "http-server -a 0.0.0.0 -p 8099 -c-1",
+    "start": "node index.js",
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js  --single-run",
@@ -34,6 +34,7 @@
     "angular": "^1.4.7",
     "express": "^4.13.3",
     "sequelize": "^3.12.2",
-    "sqlite3": "^3.1.0"
+    "sqlite3": "^3.1.0",
+    "lwip": "^0.0.8"
   }
 }
