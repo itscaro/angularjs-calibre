@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Angularjs-calibre : Calibre browser with AngularJS &amp; NodeJS">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Angularjs-calibre</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/itscaro/angularjs-calibre">View on GitHub</a>
+
+          <h1 id="project_title">Angularjs-calibre</h1>
+          <h2 id="project_tagline">Calibre browser with AngularJS &amp; NodeJS</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/itscaro/angularjs-calibre/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/itscaro/angularjs-calibre/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="calibre-browser-with-angularjs--nodejs" class="anchor" href="#calibre-browser-with-angularjs--nodejs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Calibre browser with AngularJS &amp; NodeJS</h1>
+
+<p>Fully based on Javascript for client and server sides.</p>
+
+<h2>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>You need to create a configuration file named <em>config.json</em> in the root directory of the application. You can find there 
+an example file named <em>config.dist.json</em></p>
+
+<h1>
+<a id="get-running" class="anchor" href="#get-running" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get running</h1>
+
+<h2>
+<a id="start-the-application" class="anchor" href="#start-the-application" aria-hidden="true"><span class="octicon octicon-link"></span></a>Start the application</h2>
+
+<p>With node</p>
+
+<pre><code>  node index.js
+</code></pre>
+
+<p>With forever</p>
+
+<pre><code>  forever index.js
+</code></pre>
+
+<h2>
+<a id="nginx-as-proxy" class="anchor" href="#nginx-as-proxy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Nginx as Proxy</h2>
+
+<pre><code>server {
+       location /angular-calibre/ {
+               proxy_pass http://127.0.0.1:8099/;
+       }
+}
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Angularjs-calibre maintained by <a href="https://github.com/itscaro">itscaro</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
