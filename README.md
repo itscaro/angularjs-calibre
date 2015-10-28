@@ -1,6 +1,12 @@
 # Calibre browser with AngularJS & NodeJS
 Fully based on Javascript for client and server sides.
 
+## Installation
+
+```
+  npm install
+```
+
 ## Configuration
 
 You need to create a configuration file named *config.json* in the root directory of the application. You can find there 
