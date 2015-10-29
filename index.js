@@ -145,7 +145,6 @@ server.get(
             offset: (page - 1) * limit,
             limit: limit,
             where: sqlWhere,
-            order: 'id ' + sqlOrder,
             include: [db.Author, db.Rating, db.Language, db.Data, db.Tag]
         }).then(function (books) {
             return Promise.all(books.map(function (book) {
