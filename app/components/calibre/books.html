@@ -8,10 +8,7 @@
     Search By Language: <input type="text" ng-model="search.book.languagesName"><br/>
 </section>
 
-<section class="row">
-    <i class="material-icons pointer" ng-click="page > 1 && loadPage(page = page - 1)">&#xE408;</i>
-    <i class="material-icons pointer" ng-click="loadPage(page = page + 1)">&#xE409;</i>
-</section>
+<section class="row" ng-include="templates.navigation.url"></section>
 
 <section class="row">
     <article class="col-md-4 portfolio-item" style="height: 225px;" ng-repeat="book in books | filter:search"
@@ -28,7 +25,4 @@
     </article>
 </section>
 
-<section class="row">
-    <i class="material-icons pointer" ng-click="page > 1 && loadPage(page = page - 1)">&#xE408;</i>
-    <i class="material-icons pointer" ng-click="loadPage(page = page + 1)">&#xE409;</i>
-</section>
+<section class="row" ng-include="templates.navigation.url"></section>

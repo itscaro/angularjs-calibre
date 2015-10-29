@@ -3,10 +3,14 @@ var querystring = require('querystring');
 var Sequelize = require('sequelize');
 var lwip = require('lwip');
 var fs = require('fs');
+var Promise = require("bluebird");
 
 //process.argv.forEach(function (val, index, array) {
 //    console.log(index + ': ' + val);
 //});
+function ArgumentsToArray(args) {
+    return [].slice.apply(args);
+}
 
 var Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
 
@@ -58,8 +62,7 @@ server.get(
         console.log(req.params, req.query);
         var newHeight = req.query.height ? req.query.height : 100;
 
-        var promise = db.Book.findById(req.params.id);
-        promise.then(function (book) {
+        db.Book.findById(req.params.id).then(function (book) {
             var cover = {
                 original: Config.calibre.path + '/' + book.path + '/cover.jpg',
                 cached: 'cache/' + book.id + '-' + newHeight + '.jpg'
@@ -80,13 +83,10 @@ server.get(
                 res.download(cover.cached)
             } else {
                 lwip.open(cover.original, function (err, image) {
-                    console.log('Image size', image.width(), image.height());
-
                     var ratio = image.height() / newHeight,
                         newWidth = Math.round(image.width() / ratio);
 
-                    console.log('New image size', newWidth, newHeight);
-                    console.log('New image ratio', 1 / Math.round(ratio));
+                    console.log('Image size - New image size', image.width(), image.height(), newWidth, newHeight);
 
                     image.batch()
                         .scale(1 / Math.round(ratio, 1))
@@ -147,41 +147,33 @@ server.get(
             where: sqlWhere,
             order: 'id ' + sqlOrder
         }).then(function (books) {
-            var promises = []
-
-            books.forEach(function (book) {
-                var promise;
-                promise = book.getAuthors().then(function (authors) {
-                    authors.forEach(function (author) {
-                        book.authors = author.name
-                    })
-                });
-                promises.push(promise);
-
-                promise = book.getRatings().then(function (ratings) {
-                    ratings.forEach(function (rating) {
-                        book.rating = rating.rating
-                    })
-                });
-                promises.push(promise);
-
-                promise = book.getLanguages().then(function (languages) {
-                    languages.forEach(function (language) {
-                        book.languages = language.lang_code
-                    })
-                });
-                promises.push(promise);
-
+            return Promise.all(books.map(function (book) {
                 if (book.has_cover) {
                     book.coverUrl = 'api/book/' + book.id + '/cover.jpg';
                 } else {
                     book.coverUrl = null;
                 }
-            });
 
-            Promise.all(promises).then(function () {
-                res.json(books);
-            })
+                return Promise.join(
+                    book.getAuthors(), book.getRatings(), book.getLanguages(),
+                    function (authors, ratings, languages) {
+                        console.log("Processing authors, ratings, languages for book " + book.id);
+                        authors.forEach(function (author) {
+                            book.authors = author.name
+                        });
+                        ratings.forEach(function (rating) {
+                            book.rating = rating.rating
+                        });
+                        languages.forEach(function (language) {
+                            book.languages = language.lang_code
+                        });
+                        return book;
+                    }
+                );
+            }));
+        }).spread(function () {
+            console.log("Sending response");
+            res.json(ArgumentsToArray(arguments));
         });
     });
 
