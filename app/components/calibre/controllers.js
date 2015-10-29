@@ -29,17 +29,19 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
             };
 
             $scope.searchall = function () {
-                page = 1;
+                $scope.page = page = 1;
                 $cookies.put('page', page);
                 apiService.getBooks(page, limit, $scope.sort, $scope.searchall_query).success(function (data) {
-                    $scope.books = data;
+                    $scope.books = data.books;
+                    $scope.count = data.count;
                 });
             };
 
             $scope.loadPage = function (page) {
                 $cookies.put('page', page);
                 apiService.getBooks(page, limit, $scope.sort).success(function (data) {
-                    $scope.books = data;
+                    $scope.books = data.books;
+                    $scope.count = data.count;
                 });
             };
 

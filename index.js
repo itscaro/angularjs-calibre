@@ -141,13 +141,15 @@ server.get(
             sqlOrder = 'DESC'
         }
 
-        db.Book.findAll({
+        var count = 0;
+        db.Book.findAndCountAll({
             offset: (page - 1) * limit,
             limit: limit,
             where: sqlWhere,
             include: [db.Author, db.Rating, db.Language, db.Data, db.Tag]
         }).then(function (books) {
-            return Promise.all(books.map(function (book) {
+            count = books.count;
+            return Promise.all(books.rows.map(function (book) {
                 if (book.has_cover) {
                     book.coverUrl = 'api/book/' + book.id + '/cover.jpg';
                 } else {
@@ -157,7 +159,10 @@ server.get(
                 return book;
             }));
         }).spread(function () {
-            res.json(ArgumentsToArray(arguments));
+            res.json({
+                books: ArgumentsToArray(arguments),
+                count: count
+            });
         });
     });
 
