@@ -1,21 +1,20 @@
-<img height="100" ng-if="book.coverUrl != null" ng-src="{{coverUrl(book.id, 100)}}"><br/>
-<span>{{book.title}}</span>
-<div>Authors: <span ng-repeat="author in book.authors">{{author}}</span></div>
-<div ng-if="book.rating > 0">Rating: <span>({{book.rating}})</span></div>
-<div ng-if="book.languages">Languages: <span ng-repeat="language in book.languages">{{language}}</span></div>
+<section class="row" ng-include="templates.book.url">
+</section>
 
-Read<br/>
-<ul class="list-inline">
-    <li ng-repeat="format in book.data">
-        <a class="btn btn-primary" ng-click="read(book.id, format.format)"><span>{{format.format}}</span></a>
-    </li>
-</ul>
+<section class="row">
+    <h4>Read</h4>
+    <ul class="list-inline">
+        <li ng-repeat="format in book.data">
+            <a class="btn btn-primary" ng-click="read(book.id, format.format)"><span>{{format.format}}</span></a>
+        </li>
+    </ul>
+</section>
 
-Download<br/>
-<ul class="list-inline">
-    <li ng-repeat="format in book.data">
-        <a class="btn btn-primary" ng-href="{{downloadUrl(book.id, format.format)}}"><span>{{format.format}}</span></a>
-    </li>
-</ul>
-
-<!--<span style="font-style: italic">{{book.book.languagesName}}</span>-->
+<section class="row">
+    <h4>Download</h4>
+    <ul class="list-inline">
+        <li ng-repeat="format in book.data">
+            <a class="btn btn-primary" ng-href="{{downloadUrl(book.id, format.format)}}"><span>{{format.format}}</span></a>
+        </li>
+    </ul>
+</section>

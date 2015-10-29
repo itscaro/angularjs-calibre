@@ -1,10 +1,11 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
-  "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
-  "license": "MIT",
+  "name": "angularjs-calibre",
   "private": true,
+  "version": "0.0.0",
+  "description": "Calibre browser with AngularJS & NodeJS",
+  "repository": "https://github.com/itscaro/angularjs-calibre",
+  "homepage": "https://github.com/angular/angular-seed",
+  "license": "GNU v2",
   "dependencies": {
     "angular-route": "~1.4.0",
     "html5-boilerplate": "~5.2.0",

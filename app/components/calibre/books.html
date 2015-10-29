@@ -11,17 +11,9 @@
 <section class="row" ng-include="templates.navigation.url"></section>
 
 <section class="row">
-    <article class="col-md-4 portfolio-item" style="height: 225px;" ng-repeat="book in books | filter:search"
-             data-id="{{book.id}}">
-        <div>
-            <a href="#/books/{{book.id}}">
-                <img height="100" ng-if="book.coverUrl != null" ng-src="{{coverUrl(book.id, 100)}}">
-            </a><br/>
-            <a href="#/books/{{book.id}}"><span>{{book.title}}</span></a>
-        </div>
-        <div>Authors: <span ng-repeat="author in book.authors">{{author}}</span></div>
-        <div ng-if="book.rating > 0">Rating: <span>({{book.rating}})</span></div>
-        <div ng-if="book.languages">Languages: <span ng-repeat="language in book.languages">{{language}}</span></div>
+    <article class="col-md-4 portfolio-item" style="height: 225px;"
+             ng-repeat="book in books | orderBy: '-id' | filter:search"
+             data-id="{{book.id}}" ng-include="templates.book.url">
     </article>
 </section>
 

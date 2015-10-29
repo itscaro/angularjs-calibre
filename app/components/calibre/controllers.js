@@ -7,7 +7,8 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
                 limit = 24;
 
             $scope.templates = {
-                navigation: { url: 'components/calibre/partials/navigation.html'}
+                navigation: {url: 'components/calibre/partials/navigation.html'},
+                book: {url: 'components/calibre/partials/book-info.html'}
             };
             $scope.page = page;
             $scope.config = config;
@@ -16,15 +17,28 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
                 return apiService.getBookCover(id, height);
             };
 
+            $scope.languageText = function (lang_code) {
+                switch (lang_code) {
+                    case 'eng':
+                        return 'English';
+                    case 'fra':
+                        return 'French';
+                    case 'vie':
+                        return 'Vietnamese';
+                }
+            };
+
             $scope.searchall = function () {
-                apiService.getBooks(page, limit).success(function (data) {
+                page = 1;
+                $cookies.put('page', page);
+                apiService.getBooks(page, limit, $scope.sort, $scope.searchall_query).success(function (data) {
                     $scope.books = data;
                 });
             };
 
             $scope.loadPage = function (page) {
-                $cookies.put('page', page)
-                apiService.getBooks(page, limit).success(function (data) {
+                $cookies.put('page', page);
+                apiService.getBooks(page, limit, $scope.sort).success(function (data) {
                     $scope.books = data;
                 });
             };
@@ -33,6 +47,10 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
         }])
     .controller('BookDetailCtrl', ['myAppConfig', '$scope', '$routeParams', 'apiService', 'ngDialog',
         function (config, $scope, $routeParams, apiService, $dialog) {
+            $scope.templates = {
+                book: {url: 'components/calibre/partials/book-info.html'}
+            };
+
             $scope.config = config;
 
             $scope.coverUrl = function (id, height) {

@@ -145,7 +145,8 @@ server.get(
             offset: (page - 1) * limit,
             limit: limit,
             where: sqlWhere,
-            order: 'id ' + sqlOrder
+            order: 'id ' + sqlOrder,
+            include: [db.Author, db.Rating, db.Language, db.Data, db.Tag]
         }).then(function (books) {
             return Promise.all(books.map(function (book) {
                 if (book.has_cover) {
@@ -154,25 +155,9 @@ server.get(
                     book.coverUrl = null;
                 }
 
-                return Promise.join(
-                    book.getAuthors(), book.getRatings(), book.getLanguages(),
-                    function (authors, ratings, languages) {
-                        console.log("Processing authors, ratings, languages for book " + book.id);
-                        authors.forEach(function (author) {
-                            book.authors = author.name
-                        });
-                        ratings.forEach(function (rating) {
-                            book.rating = rating.rating
-                        });
-                        languages.forEach(function (language) {
-                            book.languages = language.lang_code
-                        });
-                        return book;
-                    }
-                );
+                return book;
             }));
         }).spread(function () {
-            console.log("Sending response");
             res.json(ArgumentsToArray(arguments));
         });
     });
@@ -180,29 +165,12 @@ server.get(
 server.get(
     "/api/books/:id([0-9]+)",
     function (req, res) {
-        var promise = db.Book.findById(req.params.id);
-        promise.then(function (book) {
-            var promises = [], promise;
-            promise = book.getAuthors();
-            promises.push(promise);
-            promise.then(function (authors) {
-                authors.forEach(function (author) {
-                    book.authors = author.name
-                })
-            });
-
-            promise = book.getData();
-            promises.push(promise);
-            promise.then(function (data) {
-                data.forEach(function (_data) {
-                    book.data = _data
-                })
-            });
-
-            Promise.all(promises).then(function () {
+        db.Book.findById(
+            req.params.id,
+            {include: [db.Author, db.Rating, db.Language, db.Data, db.Tag]}
+        ).then(function (book) {
                 res.json(book);
-            })
-        });
+            });
     }
 );
 

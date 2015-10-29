@@ -1,0 +1,15 @@
+<div>
+    <a href="#/books/{{book.id}}">
+        <img height="100" ng-if="book.coverUrl != null" ng-src="{{coverUrl(book.id, 100)}}">
+    </a><br/>
+    <a href="#/books/{{book.id}}"><h4>{{book.title}}</h4></a>
+</div>
+<div>
+    <label>Authors:</label> <span ng-repeat="author in book.authors">{{author.name}}{{$last ? '' : ', '}}</span>
+</div>
+<div ng-if="book.rating.count() > 0">
+    <label>Rating:</label> <span>({{book.ratings[0].rating}})</span>
+</div>
+<div ng-if="book.languages.count() > 0">
+    <label>Languages:</label> <span ng-repeat="language in book.languages">{{languageText(language.lang_code)}}</span>
+</div>

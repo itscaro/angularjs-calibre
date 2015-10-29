@@ -29,18 +29,6 @@ module.exports = function (dsn) {
         {
             timestamps: false,
             getterMethods: {
-                rating: function () {
-                    return this._rating
-                },
-                languages: function () {
-                    return this._languages
-                },
-                authors: function () {
-                    return this._authors
-                },
-                data: function () {
-                    return this._data
-                },
                 coverUrl: function () {
                     if (this.has_cover) {
                         return '/api/books/' + this.id + '/cover.jpg'
@@ -50,27 +38,6 @@ module.exports = function (dsn) {
                 }
             },
             setterMethods: {
-                rating: function (value) {
-                    this._rating = value;
-                },
-                authors: function (value) {
-                    if (typeof this._authors == 'undefined') {
-                        this._authors = []
-                    }
-                    this._authors.push(value);
-                },
-                languages: function (value) {
-                    if (typeof this._languages == 'undefined') {
-                        this._languages = []
-                    }
-                    this._languages.push(value);
-                },
-                data: function (value) {
-                    if (typeof this._data == 'undefined') {
-                        this._data = []
-                    }
-                    this._data.push(value);
-                }
             }
         }
     );
@@ -214,5 +181,8 @@ module.exports = function (dsn) {
     module.Book = Book;
     module.Author = Author;
     module.Rating = Rating;
+    module.Language = Language;
+    module.Tag = Tag;
+    module.Data = Data;
     return module;
 };
