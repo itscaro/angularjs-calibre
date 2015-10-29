@@ -32,6 +32,9 @@ module.exports = function (dsn) {
                 rating: function () {
                     return this._rating
                 },
+                languages: function () {
+                    return this._languages
+                },
                 authors: function () {
                     return this._authors
                 },
@@ -50,17 +53,23 @@ module.exports = function (dsn) {
                 rating: function (value) {
                     this._rating = value;
                 },
-                data: function (value) {
-                    if (typeof this._data == 'undefined') {
-                        this._data = []
-                    }
-                    this._data.push(value);
-                },
                 authors: function (value) {
                     if (typeof this._authors == 'undefined') {
                         this._authors = []
                     }
                     this._authors.push(value);
+                },
+                languages: function (value) {
+                    if (typeof this._languages == 'undefined') {
+                        this._languages = []
+                    }
+                    this._languages.push(value);
+                },
+                data: function (value) {
+                    if (typeof this._data == 'undefined') {
+                        this._data = []
+                    }
+                    this._data.push(value);
                 }
             }
         }
@@ -197,8 +206,8 @@ module.exports = function (dsn) {
     Book.belongsToMany(Language, {through: BookLanguage, foreignKey: 'book'});
     Language.belongsToMany(Book, {through: BookLanguage, foreignKey: 'lang_code'});
 
-    Book.belongsToMany(Tag, {through: BookLanguage, foreignKey: 'book'});
-    Tag.belongsToMany(Book, {through: BookLanguage, foreignKey: 'lang_code'});
+    Book.belongsToMany(Tag, {through: BookTag, foreignKey: 'book'});
+    Tag.belongsToMany(Book, {through: BookTag, foreignKey: 'tag'});
 
     Book.hasMany(Data, {foreignKey: 'book'});
 

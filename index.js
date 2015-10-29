@@ -127,32 +127,50 @@ server.get(
             sqlOrder = 'DESC'
         }
 
-        var books = db.Book.findAll({
+        if (req.query.title) {
+            sqlWhere = {
+                title: {
+                    $like: '%' + req.query.title + '%'
+                }
+            }
+        }
+
+        if (req.query.order) {
+            sqlOrder = req.query.order
+        } else {
+            sqlOrder = 'DESC'
+        }
+
+        db.Book.findAll({
             offset: (page - 1) * limit,
             limit: limit,
             where: sqlWhere,
             order: 'id ' + sqlOrder
-        });
-        books.then(function (books) {
+        }).then(function (books) {
             var promises = []
 
             books.forEach(function (book) {
                 var promise;
-                promise = book.getAuthors();
-                promises.push(promise);
-                promise.then(function (authors) {
+                promise = book.getAuthors().then(function (authors) {
                     authors.forEach(function (author) {
                         book.authors = author.name
                     })
                 });
-
-                promise = book.getRatings();
                 promises.push(promise);
-                promise.then(function (ratings) {
+
+                promise = book.getRatings().then(function (ratings) {
                     ratings.forEach(function (rating) {
                         book.rating = rating.rating
                     })
                 });
+                promises.push(promise);
+
+                promise = book.getLanguages().then(function (languages) {
+                    languages.forEach(function (language) {
+                        book.languages = language.lang_code
+                    })
+                });
+                promises.push(promise);
 
                 if (book.has_cover) {
                     book.coverUrl = 'api/book/' + book.id + '/cover.jpg';
