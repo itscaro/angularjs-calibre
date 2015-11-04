@@ -10,4 +10,4 @@ RUN cd /src && npm install
 
 EXPOSE 8099
 
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT [ "sh", "-c", "/start.sh"]
