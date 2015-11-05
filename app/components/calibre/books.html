@@ -1,16 +1,23 @@
 <div ng-show="!isLoading">
     <section class="row">
         <form ng-submit="searchall()">
-            Search:
-            <input type="text" ng-model="searchall_query">
+            <md-input-container flex>
+                <label>Search By Title</label>
+                <input type="text" ng-model="searchall_query">
+            </md-input-container>
             <md-button class="md-raised">Search</md-button>
         </form>
-        <br/>
-        <br/> Search By Name:
-        <input type="text" ng-model="search.title">
-        <br/> Search By Language:
-        <input type="text" ng-model="search.book.languagesName">
-        <br/>
+        <div layout-gt-sm="row">
+            <md-input-container flex>
+                <label>Search by Title in this page</label>
+                <input type="text" ng-model="search.title">
+            </md-input-container>
+
+            <md-input-container flex>
+                <label>Search By Language</label>
+                <input type="text" ng-model="search.book.languagesName">
+            </md-input-container>
+        </div>
     </section>
 
     <section class="row">

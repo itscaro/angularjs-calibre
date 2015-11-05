@@ -9,10 +9,14 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
         function (templates, $rootScope, $scope, $routeParams, $cookies, apiService) {
             $scope.templates = templates
             $scope.page = parseInt($routeParams.page ? $routeParams.page : ($cookies.get('page') ? $cookies.get('page') : 1))
-            $scope.perpage = 24;
+            $scope.perpage = parseInt($routeParams.perpage ? $routeParams.perpage : ($cookies.get('perpage') ? $cookies.get('perpage') : 24))
 
             $scope.$watch('page', function (newValue, oldValue) {
                 $cookies.put('page', newValue)
+            });
+
+            $scope.$watch('perpage', function (newValue, oldValue) {
+                $cookies.put('perpage', newValue)
             });
 
             $scope.coverUrl = function (id, height) {
