@@ -2,35 +2,37 @@
 
 // Declare app level module which depends on views, and components
 var myApp;
+var modulesToLoad = [
+    'ngRoute',
+    'ui.bootstrap',
+    'myApp.calibre',
+    'myApp.version',
+    'ngMaterial'
+];
 try {
-    angular.module('myApp.debug');
-    myApp = angular
-        .module('myApp', [
-            'ngRoute',
-            'ui.bootstrap',
-            'myApp.calibre',
-            'myApp.version',
-            'myApp.debug'
-        ]);
+    angular.module('myApp.debug')
+    modulesToLoad.push('myApp.debug')
 } catch (err) {
-    myApp = angular
-        .module('myApp', [
-            'ngRoute',
-            'ui.bootstrap',
-            'myApp.calibre',
-            'myApp.version'
-        ]);
-}
 
+}
+myApp = angular.module('myApp', modulesToLoad)
 myApp
     .value('myAppConfig', typeof Config == 'undefined' ? {} : Config)
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.otherwise({redirectTo: '/books'});
+    .config(['$routeProvider', '$mdThemingProvider', function ($routeProvider, $mdThemingProvider) {
+        $routeProvider.otherwise({ redirectTo: '/books' });
+
+        $mdThemingProvider.theme('default')
+            .primaryPalette('blue')
+            .accentPalette('orange');
+
     }])
-    .run(['$rootScope', 'ngDialog', function ($rootScope, $dialog) {
+    .run(['$rootScope', 'ngDialog', '$interval', function ($rootScope, $dialog, $interval) {
         $rootScope.about = function () {
             $dialog.open({
                 template: 'components/calibre/about.html'
             })
         }
+
+        $rootScope.loadingMode = 'indeterminate';
+        $rootScope.isLoading = true;
     }]);

@@ -1,6 +1,7 @@
 /metadata.db
 /config.json
 logs/*
+cache/
 !.gitkeep
 node_modules/
 bower_components/

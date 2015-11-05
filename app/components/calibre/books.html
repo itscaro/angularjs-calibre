@@ -1,24 +1,29 @@
-<section class="row">
-    <form ng-submit="searchall()">
-        Search: <input type="text" ng-model="searchall_query">
-        <button class="btn btn-primary">Search</button>
-    </form>
-    <br/> <br/>
-    Search By Name: <input type="text" ng-model="search.title"><br/>
-    Search By Language: <input type="text" ng-model="search.book.languagesName"><br/>
-</section>
+<div ng-show="!isLoading">
+    <section class="row">
+        <form ng-submit="searchall()">
+            Search:
+            <input type="text" ng-model="searchall_query">
+            <md-button class="md-raised">Search</md-button>
+        </form>
+        <br/>
+        <br/> Search By Name:
+        <input type="text" ng-model="search.title">
+        <br/> Search By Language:
+        <input type="text" ng-model="search.book.languagesName">
+        <br/>
+    </section>
 
-<section class="row">
-Number of books: {{count}}
-</section>
+    <section class="row">
+        Number of books: {{count}}
+    </section>
 
-<section class="row" ng-include="templates.navigation.url"></section>
+    <section class="row navigation" ng-include="templates.navigation.url"></section>
 
-<section class="row">
-    <article class="col-md-4 portfolio-item" style="height: 225px;"
-             ng-repeat="book in books | orderBy: '-id' | filter:search"
-             data-id="{{book.id}}" ng-include="templates.book.url">
-    </article>
-</section>
+    <section class="row">
+        <article class="col-md-4 portfolio-item" style="height: 225px;" ng-repeat="book in books | orderBy: '-id' | filter:search"
+        data-id="{{book.id}}" ng-include="templates.bookinfo.url">
+        </article>
+    </section>
 
-<section class="row" ng-include="templates.navigation.url"></section>
+    <section class="row navigation" ng-include="templates.navigation.url"></section>
+</div>

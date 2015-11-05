@@ -1,17 +1,19 @@
 'use strict'
 
 angular.module('myApp.calibre.controllers', ['ngDialog'])
-    .controller('BooksCtrl', ['myAppConfig', '$scope', '$routeParams', '$cookies', 'apiService',
-        function (config, $scope, $routeParams, $cookies, apiService) {
-            var page = parseInt($routeParams.page ? $routeParams.page : ($cookies.get('page') ? $cookies.get('page') : 1)),
-                limit = 24;
+    .value('myApp.calibre.templates', {
+        navigation: { url: 'components/calibre/partials/navigation.html' },
+        bookinfo: { url: 'components/calibre/partials/book-info.html' }
+    })
+    .controller('BooksCtrl', ['myApp.calibre.templates', '$rootScope', '$scope', '$routeParams', '$cookies', 'apiService',
+        function (templates, $rootScope, $scope, $routeParams, $cookies, apiService) {
+            $scope.templates = templates
+            $scope.page = parseInt($routeParams.page ? $routeParams.page : ($cookies.get('page') ? $cookies.get('page') : 1))
+            $scope.perpage = 24;
 
-            $scope.templates = {
-                navigation: {url: 'components/calibre/partials/navigation.html'},
-                book: {url: 'components/calibre/partials/book-info.html'}
-            };
-            $scope.page = page;
-            $scope.config = config;
+            $scope.$watch('page', function (newValue, oldValue) {
+                $cookies.put('page', newValue)
+            });
 
             $scope.coverUrl = function (id, height) {
                 return apiService.getBookCover(id, height);
@@ -29,31 +31,32 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
             };
 
             $scope.searchall = function () {
-                $scope.page = page = 1;
-                $cookies.put('page', page);
-                apiService.getBooks(page, limit, $scope.sort, $scope.searchall_query).success(function (data) {
-                    $scope.books = data.books;
-                    $scope.count = data.count;
-                });
+                $scope.page = 1
+                $rootScope.isLoading = true
+                apiService.getBooks($scope.page, $scope.perpage, $scope.sort, $scope.searchall_query)
+                    .success(function (data) {
+                        $scope.books = data.books
+                        $scope.count = data.count
+                        $rootScope.isLoading = false
+                    });
             };
 
             $scope.loadPage = function (page) {
-                $cookies.put('page', page);
-                apiService.getBooks(page, limit, $scope.sort).success(function (data) {
-                    $scope.books = data.books;
-                    $scope.count = data.count;
-                });
+                $scope.page = page
+                $rootScope.isLoading = true
+                apiService.getBooks(page, $scope.perpage, $scope.sort)
+                    .success(function (data) {
+                        $scope.books = data.books
+                        $scope.count = data.count
+                        $rootScope.isLoading = false
+                    });
             };
 
-            $scope.loadPage(page)
+            $scope.loadPage($scope.page)
         }])
-    .controller('BookDetailCtrl', ['myAppConfig', '$scope', '$routeParams', 'apiService', 'ngDialog',
-        function (config, $scope, $routeParams, apiService, $dialog) {
-            $scope.templates = {
-                book: {url: 'components/calibre/partials/book-info.html'}
-            };
-
-            $scope.config = config;
+    .controller('BookDetailCtrl', ['myApp.calibre.templates', '$rootScope', '$scope', '$routeParams', 'apiService', 'ngDialog',
+        function (templates, $rootScope, $scope, $routeParams, apiService, $dialog) {
+            $scope.templates = templates
 
             $scope.coverUrl = function (id, height) {
                 return apiService.getBookCover(id, height);
@@ -75,8 +78,10 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
                 });
             };
 
+            $rootScope.isLoading = true
             apiService.getBook($routeParams.id).success(function (data) {
                 $scope.book = data;
+                $rootScope.isLoading = false
             });
         }])
     .directive('reader', ['apiService', function (apiService) {

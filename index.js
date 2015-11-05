@@ -30,15 +30,12 @@ server.get(
         var format = req.params.format ? req.params.format : null,
             file;
 
-        //var promises = [];
         db.Book.findById(req.params.id).then(function (book) {
-            var promise = book.getData({
+            book.getData({
                 where: {
                     format: format
                 }
-            });
-            //promises.push(promise);
-            promise.then(function (data) {
+            }).then(function (data) {
                 data.forEach(function (_data) {
                     book.data = _data;
                     file = {
@@ -50,9 +47,6 @@ server.get(
                 });
             });
         });
-
-        //Promise.all(promises).then(function () {
-        //});
     }
 );
 

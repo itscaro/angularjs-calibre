@@ -1,11 +1,13 @@
-<section class="row" ng-include="templates.book.url">
+<section class="row" ng-include="templates.bookinfo.url">
 </section>
 
 <section class="row">
     <h4>Read</h4>
     <ul class="list-inline">
         <li ng-repeat="format in book.data">
-            <a class="btn btn-primary" ng-click="read(book.id, format.format)"><span>{{format.format}}</span></a>
+            <md-button class="md-fab" aria-label="{{format.format}}" ng-click="read(book.id, format.format)" ng-show="format.format == 'EPUB'">
+                <span>{{format.format}}</span>
+            </md-button>
         </li>
     </ul>
 </section>
@@ -14,7 +16,9 @@
     <h4>Download</h4>
     <ul class="list-inline">
         <li ng-repeat="format in book.data">
-            <a class="btn btn-primary" ng-href="{{downloadUrl(book.id, format.format)}}"><span>{{format.format}}</span></a>
+            <md-button class="md-fab" class="md-button" ng-href="{{downloadUrl(book.id, format.format)}}">
+                <span>{{format.format}}</span>
+            </md-button>
         </li>
     </ul>
 </section>

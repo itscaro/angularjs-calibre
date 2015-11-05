@@ -68,3 +68,11 @@
 .arrow:active {
   color: #000;
 }
+
+header {
+  margin: 15px;
+}
+
+section.navigation{
+  margin: 15px 0;
+}
