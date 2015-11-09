@@ -6,22 +6,49 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "jasmine/jasmine.d.ts": {
-      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
     },
     "angular-protractor/angular-protractor.d.ts": {
-      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
     },
     "angularjs/angular.d.ts": {
-      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
     },
     "express/express.d.ts": {
-      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
     },
     "bluebird/bluebird.d.ts": {
-      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
     },
     "sequelize/sequelize.d.ts": {
-      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "serve-static/serve-static.d.ts": {
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "mime/mime.d.ts": {
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "node/node.d.ts": {
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "jquery/jquery.d.ts": {
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "angular-ui-router/angular-ui-router.d.ts": {
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "angularjs/angular-animate.d.ts": {
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "angular-ui-bootstrap/angular-ui-bootstrap.d.ts": {
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "bootstrap/bootstrap.d.ts": {
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "angularjs/angular-cookies.d.ts": {
+      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
     }
   }
 }
