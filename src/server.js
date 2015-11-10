@@ -1,10 +1,10 @@
 var express = require('express');
 var querystring = require('querystring');
-var Sequelize = require('sequelize');
-var lwip = require('lwip');
 var fs = require('fs');
+var lwip = require('lwip');
+var Sequelize = require('sequelize');
 var Promise = require("bluebird");
-
+require('sqlite3')
 //process.argv.forEach(function (val, index, array) {
 //    console.log(index + ': ' + val);
 //});
@@ -12,13 +12,13 @@ function ArgumentsToArray(args) {
     return [].slice.apply(args);
 }
 
-var Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+var Config = JSON.parse(fs.readFileSync(__dirname + '/config.json', 'utf8'));
 
-var db = require('./database.js')(Config.calibre.path + '/metadata.db');
+var db = require(__dirname + '/database.js')(Config.calibre.path + '/metadata.db');
 
 var server = express();
 
-server.use(express.static(__dirname + '/app'));
+server.use(express.static(__dirname + '/../app'));
 
 server.get(
     [
@@ -48,7 +48,7 @@ server.get(
             });
         });
     }
-);
+    );
 
 server.get(
     "/api/books/:id([0-9]+)/cover.jpg",
@@ -95,7 +95,7 @@ server.get(
             }
         });
     }
-);
+    );
 
 server.get(
     [
@@ -165,13 +165,16 @@ server.get(
     function (req, res) {
         db.Book.findById(
             req.params.id,
-            {include: [db.Author, db.Rating, db.Language, db.Data, db.Tag]}
-        ).then(function (book) {
+            { include: [db.Author, db.Rating, db.Language, db.Data, db.Tag] }
+            ).then(function (book) {
                 res.json(book);
             });
     }
-);
+    );
 
 server.listen(Config.server.port, Config.server.host, function () {
     console.log('Express server listening on ', Config.server.host, Config.server.port);
 });
+
+
+module.exports = server

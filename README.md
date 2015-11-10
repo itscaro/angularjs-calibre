@@ -34,3 +34,9 @@ server {
        }
 }
 ```
+
+### Build for node
+nom install
+
+### Build for electron
+aspm install --target 0.34.0 --arch x64
