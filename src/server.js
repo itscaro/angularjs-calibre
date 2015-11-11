@@ -172,8 +172,10 @@ server.get(
     }
     );
 
-server.listen(Config.server.port, Config.server.host, function () {
-    console.log('Express server listening on ', Config.server.host, Config.server.port);
+server.set('host', process.env.host || Config.server.host || '127.0.0.1')
+server.set('port', process.env.port || Config.server.port || 8099)
+server.listen(server.get('port'), server.get('host'), function () {
+    console.log('Express server listening on ', server.get('host'), server.get('port'));
 });
 
 

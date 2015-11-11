@@ -15,9 +15,15 @@ try {
 } catch (err) {
 
 }
+
+if (process.versions.electron) {
+    var fs = require('fs')
+    var Config = JSON.parse(fs.readFileSync(__dirname + '/../src/config.json', 'utf8'));
+}
+
 myApp = angular.module('myApp', modulesToLoad)
 myApp
-    .value('myAppConfig', typeof Config == 'undefined' ? {} : Config)
+    .value('myAppConfig', Config || {})
     .config(['$routeProvider', '$mdThemingProvider', function ($routeProvider, $mdThemingProvider) {
         $routeProvider.otherwise({ redirectTo: '/books' });
 

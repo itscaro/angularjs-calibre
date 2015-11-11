@@ -1,7 +1,8 @@
 'use strict'
 
 angular.module('myApp.calibre.services', [])
-    .service('apiService', ['$rootScope', '$http', function ($rootScope, $http) {
+    .service('apiService', ['$rootScope', '$http', 'myAppConfig', function ($rootScope, $http, myAppConfig) {
+        this.endpointApi = 'http://' + myAppConfig.server.host + ':' + myAppConfig.server.port
         this.getBooks = function (page, limit, order, search) {
             // Return promise for controller to use.
             if (search) {
@@ -14,7 +15,7 @@ angular.module('myApp.calibre.services', [])
             } else {
                 order = ''
             }
-            var _return = $http.get('api/books/page/' + page + '/' + limit + search + order);
+            var _return = $http.get(this.endpointApi + '/api/books/page/' + page + '/' + limit + search + order);
 
             $rootScope.$broadcast('DEBUG', _return);
 
@@ -22,7 +23,7 @@ angular.module('myApp.calibre.services', [])
         };
 
         this.getBook = function (id) {
-            var _return = $http.get('api/books/' + id);
+            var _return = $http.get(this.endpointApi + '/api/books/' + id);
 
             $rootScope.$broadcast('DEBUG', _return);
 
@@ -30,10 +31,10 @@ angular.module('myApp.calibre.services', [])
         };
 
         this.getBookCover = function (id, height) {
-            return 'api/books/' + id + "/cover.jpg?height=" + height;
+            return this.endpointApi + '/api/books/' + id + "/cover.jpg?height=" + height;
         };
 
         this.getBookInFormat = function (id, format) {
-            return ('api/books/' + id + '/download/' + format).toLocaleLowerCase();
+            return (this.endpointApi + '/api/books/' + id + '/download/' + format).toLocaleLowerCase();
         };
     }]);

@@ -30,7 +30,7 @@
       "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
     },
     "node/node.d.ts": {
-      "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+      "commit": "785c18f0c897c44ea7fa1a47f3bcb48110658520"
     },
     "jquery/jquery.d.ts": {
       "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
@@ -49,6 +49,9 @@
     },
     "angularjs/angular-cookies.d.ts": {
       "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
+    },
+    "github-electron/github-electron.d.ts": {
+      "commit": "785c18f0c897c44ea7fa1a47f3bcb48110658520"
     }
   }
 }

@@ -10,6 +10,7 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
             $scope.templates = templates
             $scope.page = parseInt($routeParams.page ? $routeParams.page : ($cookies.get('page') ? $cookies.get('page') : 1))
             $scope.perpage = parseInt($routeParams.perpage ? $routeParams.perpage : ($cookies.get('perpage') ? $cookies.get('perpage') : 24))
+            $scope.Math = window.Math;
 
             $scope.$watch('page', function (newValue, oldValue) {
                 $cookies.put('page', newValue)
