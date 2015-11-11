@@ -1,3 +1,4 @@
+var http = require('http');
 var express = require('express');
 var querystring = require('querystring');
 var fs = require('fs');
@@ -5,22 +6,30 @@ var lwip = require('lwip');
 var Sequelize = require('sequelize');
 var Promise = require("bluebird");
 require('sqlite3')
-//process.argv.forEach(function (val, index, array) {
-//    console.log(index + ': ' + val);
-//});
-function ArgumentsToArray(args) {
-    return [].slice.apply(args);
-}
 
-var Config = JSON.parse(fs.readFileSync(__dirname + '/config.json', 'utf8'));
-
+var Config = require('./config');
 var db = require(__dirname + '/database.js')(Config.calibre.path + '/metadata.db');
+var app = express();
 
-var server = express();
+// Add Access-Control headers
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
 
-server.use(express.static(__dirname + '/../app'));
+// Static servings
+app.use(express.static(__dirname + '/../app'));
 
-server.get(
+// Config
+app.get('/config.js', function (req, res) {
+    var config = require('util')._extend({}, Config);
+    delete (config.calibre)
+    res.send("var Config = " + JSON.stringify(config))
+});
+
+// API
+app.get(
     [
         "/api/books/:id([0-9]+)/download/:format([a-z0-9]+)",
         "/api/books/:id([0-9]+)/download/:format([a-z0-9]+).([a-z0-9]+)"
@@ -50,7 +59,7 @@ server.get(
     }
     );
 
-server.get(
+app.get(
     "/api/books/:id([0-9]+)/cover.jpg",
     function (req, res) {
         console.log(req.params, req.query);
@@ -97,7 +106,7 @@ server.get(
     }
     );
 
-server.get(
+app.get(
     [
         "/api/books/",
         "/api/books/page/:page([0-9]+)",
@@ -154,29 +163,59 @@ server.get(
             }));
         }).spread(function () {
             res.json({
-                books: ArgumentsToArray(arguments),
+                books: [].slice.apply(arguments),
                 count: count
             });
         });
     });
 
-server.get(
+app.get(
     "/api/books/:id([0-9]+)",
     function (req, res) {
-        db.Book.findById(
-            req.params.id,
-            { include: [db.Author, db.Rating, db.Language, db.Data, db.Tag] }
-            ).then(function (book) {
-                res.json(book);
-            });
-    }
-    );
+        db.Book.findById(req.params.id, {
+            include: [db.Author, db.Rating, db.Language, db.Data, db.Tag]
+        }).then(function (book) {
+            var path = Config.calibre.path + '/' + book.path + '/' + book.data[0].name + '.epub'
+            if (fs.existsSync(path)) {
+                var EPub = require("epub");
+                var epub = new EPub(path);
+                epub.on("end", function () {
+                    console.log(epub.metadata)
+                    book.metadata = epub.metadata
 
-server.set('host', process.env.host || Config.server.host || '127.0.0.1')
-server.set('port', process.env.port || Config.server.port || 8099)
-server.listen(server.get('port'), server.get('host'), function () {
-    console.log('Express server listening on ', server.get('host'), server.get('port'));
+                    res.json(book)
+                });
+                try {
+                    epub.parse();
+                } catch (e) {
+
+                } finally {
+
+                }
+            }
+        });
+    });
+
+app.set('host', process.env.host || (Config.server && Config.server.host) || '127.0.0.1')
+app.set('port', process.env.port || (Config.server && Config.server.port) || 0)
+app.set('x-powered-by', false)
+
+var server = http.createServer(app).listen(app.get('port'), app.get('host'), function () {
+    app.set('host', server.address().address)
+    app.set('port', server.address().port)
+
+    Config.server = {
+        host: app.get('host'),
+        port: app.get('port')
+    }
+
+    console.log('Express server listening on ', app.get('host'), app.get('port'))
 });
 
+// Reply config to view through IPC, because port can be random
+var ipc = require('ipc');
+ipc.on('config', function (event, arg) {
+    event.returnValue = Config;
+});
 
-module.exports = server
+module.exports = app

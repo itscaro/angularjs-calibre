@@ -9,8 +9,10 @@ Fully based on Javascript for client and server sides.
 
 ## Configuration
 
-You need to create a configuration file named *config.json* in the root directory of the application. You can find there 
-an example file named *config.dist.json*
+You need to create a configuration file named *config.json* in the directory *src*.
+
+The configuration for server.host and server.port can be overriden by environment variable *host* and *port*.
+If there is no environment variable or no entry in configuration file, the host will be 127.0.0.1 and the port will be random
 
 # Get running
 

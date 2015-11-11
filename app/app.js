@@ -16,21 +16,19 @@ try {
 
 }
 
-if (process.versions.electron) {
-    var fs = require('fs')
-    var Config = JSON.parse(fs.readFileSync(__dirname + '/../src/config.json', 'utf8'));
+if (typeof Config != "undefined" && typeof process != "undefined") {
+    var Config = require('ipc').sendSync('config');
 }
 
 myApp = angular.module('myApp', modulesToLoad)
 myApp
-    .value('myAppConfig', Config || {})
+    .value('myAppConfig', Config)
     .config(['$routeProvider', '$mdThemingProvider', function ($routeProvider, $mdThemingProvider) {
         $routeProvider.otherwise({ redirectTo: '/books' });
 
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
             .accentPalette('orange');
-
     }])
     .run(['$rootScope', 'ngDialog', '$interval', function ($rootScope, $dialog, $interval) {
         $rootScope.about = function () {

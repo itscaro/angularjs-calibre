@@ -26,7 +26,7 @@
 <section class="row navigation" ng-include="templates.navigation.url" ng-show="!isLoading"></section>
 
 <section class="row" ng-show="!isLoading">
-    <article class="col-xs-6 col-sm-4 col-md-2 portfolio-item" style="height: 225px;" ng-repeat="book in books | orderBy: '-id' | filter:search"
+    <article class="col-xs-6 col-sm-4 col-md-3 col-lg-2 portfolio-item" style="height: 225px;" ng-repeat="book in books | orderBy: '-id' | filter:search"
     data-id="{{book.id}}" ng-include="templates.bookinfo.url">
     </article>
 </section>
