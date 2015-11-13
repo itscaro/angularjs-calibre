@@ -18,55 +18,54 @@
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/3-col-portfolio.css">
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
     <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css">
     <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css">
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/material-icons.css">
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body class="ng-cloak">
-    <header>
-        <md-button class="md-raised" ng-href="#/books">Home</md-button>
-    </header>
+<header>
+    <md-button class="md-raised" ng-href="#/books">Home</md-button>
+</header>
 
-    <!--[if lt IE 7]>
+<!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
-    <div ng-view class="container"></div>
+<div ui-view class="container-fluid"></div>
 
-    <div layout="row" layout-sm="column" layout-align="space-around">
-        <md-progress-circular md-mode="{{loadingMode}}" ng-show="isLoading"></md-progress-circular>
-    </div>
+<div layout="row" layout-sm="column" layout-align="space-around">
+    <md-progress-circular md-mode="{{loadingMode}}" ng-show="isLoading"></md-progress-circular>
+</div>
 
-    <footer>
-        <div><i ng-click="about()" class="material-icons pointer" style="cursor: pointer">&#xE88E;</i></div>
-    </footer>
+<footer>
+    <div><i ng-click="about()" class="material-icons pointer" style="cursor: pointer">&#xE88E;</i></div>
+</footer>
 
-    <script src="config.js"></script>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-route/angular-route.min.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
-    <script src="bower_components/angular-material/angular-material.min.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
-    <script src="components/calibre/calibre.js"></script>
-    <script src="components/calibre/controllers.js"></script>
-    <script src="components/calibre/services.js"></script>
-    <script src="components/version/version.js"></script>
-    <script src="components/version/version-directive.js"></script>
-    <script src="components/version/interpolate-filter.js"></script>
-    <script src="app.js"></script>
-    <!--
-    <script src="js/epub/epub.min.js"></script>
-    <script src="js/epub/libs/zip.min.js"></script>
-    -->
+<script src="config.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+<script src="bower_components/angular-material/angular-material.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
+<script src="components/calibre/calibre.js"></script>
+<script src="components/calibre/controllers.js"></script>
+<script src="components/calibre/services.js"></script>
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+<script src="app.js"></script>
+<!--
+<script src="js/epub/epub.min.js"></script>
+<script src="js/epub/libs/zip.min.js"></script>
+-->
 
 </body>
 

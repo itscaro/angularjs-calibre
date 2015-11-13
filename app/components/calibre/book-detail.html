@@ -2,23 +2,25 @@
 </section>
 
 <section class="row">
-    <h4>Read</h4>
-    <ul class="list-inline">
-        <li ng-repeat="format in book.data">
-            <md-button class="md-fab" aria-label="{{format.format}}" ng-click="read(book.id, format.format)" ng-show="format.format == 'EPUB'">
-                <span>{{format.format}}</span>
-            </md-button>
-        </li>
-    </ul>
-</section>
-
-<section class="row">
-    <h4>Download</h4>
-    <ul class="list-inline">
-        <li ng-repeat="format in book.data">
-            <md-button class="md-fab" class="md-button" ng-href="{{downloadUrl(book.id, format.format)}}">
-                <span>{{format.format}}</span>
-            </md-button>
-        </li>
-    </ul>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <h4>Read</h4>
+        <ul class="list-inline">
+            <li ng-repeat="format in book.data">
+                <md-button class="md-fab" aria-label="{{format.format}}" ng-click="read(book.id, format.format)"
+                           ng-show="format.format == 'EPUB'">
+                    <span>{{format.format}}</span>
+                </md-button>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <h4>Download</h4>
+        <ul class="list-inline">
+            <li ng-repeat="format in book.data">
+                <md-button class="md-fab" class="md-button" ng-href="{{downloadUrl(book.id, format.format)}}">
+                    <span>{{format.format}}</span>
+                </md-button>
+            </li>
+        </ul>
+    </div>
 </section>

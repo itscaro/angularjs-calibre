@@ -57,7 +57,7 @@ app.get(
             });
         });
     }
-    );
+);
 
 app.get(
     "/api/books/:id([0-9]+)/cover.jpg",
@@ -104,7 +104,7 @@ app.get(
             }
         });
     }
-    );
+);
 
 app.get(
     [
@@ -212,10 +212,14 @@ var server = http.createServer(app).listen(app.get('port'), app.get('host'), fun
     console.log('Express server listening on ', app.get('host'), app.get('port'))
 });
 
+try {
 // Reply config to view through IPC, because port can be random
-var ipc = require('ipc');
-ipc.on('config', function (event, arg) {
-    event.returnValue = Config;
-});
+    var ipc = require('ipc');
+    ipc.on('config', function (event, arg) {
+        event.returnValue = Config;
+    });
+} catch (e) {
+
+}
 
 module.exports = app

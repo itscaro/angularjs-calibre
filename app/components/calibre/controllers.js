@@ -5,11 +5,11 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
         navigation: { url: 'components/calibre/partials/navigation.html' },
         bookinfo: { url: 'components/calibre/partials/book-info.html' }
     })
-    .controller('BooksCtrl', ['myApp.calibre.templates', '$rootScope', '$scope', '$routeParams', '$cookies', 'apiService',
-        function (templates, $rootScope, $scope, $routeParams, $cookies, apiService) {
+    .controller('BooksCtrl', ['myApp.calibre.templates', '$rootScope', '$scope', '$stateParams', '$cookies', 'apiService',
+        function (templates, $rootScope, $scope, $stateParams, $cookies, apiService) {
             $scope.templates = templates
-            $scope.page = parseInt($routeParams.page ? $routeParams.page : ($cookies.get('page') ? $cookies.get('page') : 1))
-            $scope.perpage = parseInt($routeParams.perpage ? $routeParams.perpage : ($cookies.get('perpage') ? $cookies.get('perpage') : 24))
+            $scope.page = parseInt($stateParams.page ? $stateParams.page : ($cookies.get('page') ? $cookies.get('page') : 1))
+            $scope.perpage = parseInt($stateParams.perpage ? $stateParams.perpage : ($cookies.get('perpage') ? $cookies.get('perpage') : 24))
             $scope.Math = window.Math;
 
             $scope.$watch('page', function (newValue, oldValue) {
@@ -59,8 +59,8 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
 
             $scope.loadPage($scope.page)
         }])
-    .controller('BookDetailCtrl', ['myApp.calibre.templates', '$rootScope', '$scope', '$routeParams', 'apiService', 'ngDialog',
-        function (templates, $rootScope, $scope, $routeParams, apiService, $dialog) {
+    .controller('BookDetailCtrl', ['myApp.calibre.templates', '$rootScope', '$scope', '$stateParams', 'apiService', 'ngDialog',
+        function (templates, $rootScope, $scope, $stateParams, apiService, $dialog) {
             $scope.templates = templates
 
             $scope.coverUrl = function (id, height) {
@@ -84,7 +84,7 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
             };
 
             $rootScope.isLoading = true
-            apiService.getBook($routeParams.id).success(function (data) {
+            apiService.getBook($stateParams.id).success(function (data) {
                 $scope.book = data;
                 $rootScope.isLoading = false
             });

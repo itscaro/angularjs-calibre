@@ -2,19 +2,22 @@
 
 angular.module('myApp.calibre',
     [
-        'ngRoute',
+        'ui.router',
         'ngCookies',
         'myApp.calibre.controllers',
         'myApp.calibre.services'
     ])
-    .config(['$routeProvider',
-        function ($routeProvider) {
-            $routeProvider.when('/books', {
-                templateUrl: 'components/calibre/books.html',
-                controller: 'BooksCtrl'
-            });
-            $routeProvider.when('/books/:id', {
-                templateUrl: 'components/calibre/book-detail.html',
-                controller: 'BookDetailCtrl'
-            });
+    .config(['$stateProvider', '$urlRouterProvider',
+        function ($stateProvider, $urlRouterProvider) {
+            $stateProvider
+                .state('books', {
+                    url: '/books',
+                    templateUrl: 'components/calibre/books.html',
+                    controller: 'BooksCtrl'
+                })
+                .state('book-detail', {
+                    url: '/books/{id:int}',
+                    templateUrl: 'components/calibre/book-detail.html',
+                    controller: 'BookDetailCtrl'
+                });
         }]);
