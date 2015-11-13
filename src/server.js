@@ -71,8 +71,6 @@ app.get(
                 cached: 'cache/' + book.id + '-' + newHeight + '.jpg'
             };
 
-            console.log('Sending: ', JSON.stringify(cover));
-
             try {
                 fs.accessSync('cache', fs.R_OK | fs.W_OK)
             }
@@ -81,27 +79,37 @@ app.get(
             }
 
             res.setHeader("Cache-Control", "public, max-age=" + 30 * 86400);
-            res.setHeader("Expires", new Date(Date.now() + (30 * 86400000)).toUTCString());
-            if (fs.exists(cover.cached)) {
-                res.download(cover.cached)
-            } else {
-                lwip.open(cover.original, function (err, image) {
-                    var ratio = image.height() / newHeight,
-                        newWidth = Math.round(image.width() / ratio);
+            res.setHeader("Expires", new Date(Date.now() + (30 * 86400 * 1000)).toUTCString());
+            fs.stat(cover.cached, function (err, stats) {
+                if (err || !stats.isFile()) {
+                    console.log('Generating cache file for: ', JSON.stringify(cover));
 
-                    console.log('Image size - New image size', image.width(), image.height(), newWidth, newHeight);
+                    lwip.open(cover.original, function (err, image) {
+                        var ratio = image.height() / newHeight,
+                            newWidth = Math.round(image.width() / ratio);
 
-                    image.batch()
-                        .scale(1 / Math.round(ratio, 1))
-                        .writeFile(cover.cached, function (err, buffer) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                res.download(cover.cached)
-                            }
-                        })
-                });
-            }
+                        console.log('Image size - New image size', image.width(), image.height(), newWidth, newHeight);
+
+                        image.batch()
+                            .scale(1 / Math.round(ratio, 1))
+                            .writeFile(cover.cached, function (err, buffer) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    console.log('Sending cache file: ', cover.cached);
+
+                                    // Send newly generated cache file
+                                    res.download(cover.cached)
+                                }
+                            })
+                    });
+                } else {
+                    console.log('Sending cache file: ', cover.cached);
+
+                    // Send cache file
+                    res.download(cover.cached)
+                }
+            });
         });
     }
 );
