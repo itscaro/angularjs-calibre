@@ -175,24 +175,25 @@ app.get(
         db.Book.findById(req.params.id, {
             include: [db.Author, db.Rating, db.Language, db.Data, db.Tag]
         }).then(function (book) {
-            var path = Config.calibre.path + '/' + book.path + '/' + book.data[0].name + '.epub'
-            if (fs.existsSync(path)) {
-                var EPub = require("epub");
-                var epub = new EPub(path);
-                epub.on("end", function () {
-                    console.log(epub.metadata)
-                    book.metadata = epub.metadata
-
-                    res.json(book)
-                });
-                try {
-                    epub.parse();
-                } catch (e) {
-
-                } finally {
-
-                }
-            }
+            res.json(book)
+            //var path = Config.calibre.path + '/' + book.path + '/' + book.data[0].name + '.epub'
+            //if (fs.existsSync(path)) {
+            //    var EPub = require("epub");
+            //    var epub = new EPub(path);
+            //    epub.on("end", function () {
+            //        console.log(epub.metadata)
+            //        book.metadata = epub.metadata
+            //
+            //        res.json(book)
+            //    });
+            //    try {
+            //        epub.parse();
+            //    } catch (e) {
+            //
+            //    } finally {
+            //
+            //    }
+            //}
         });
     });
 
