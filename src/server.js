@@ -19,7 +19,7 @@ app.use(function (req, res, next) {
 });
 
 // Static servings
-app.use(express.static(__dirname + '/../app'));
+app.use(express.static(__dirname + '/app'));
 
 // Config
 app.get('/config.js', function (req, res) {
