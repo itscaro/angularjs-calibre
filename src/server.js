@@ -8,7 +8,7 @@ var Promise = require("bluebird");
 require('sqlite3')
 
 var Config = require('./config');
-var db = require(__dirname + '/database.js')(Config.calibre.path + '/metadata.db');
+var db = require('./calibre-database')(Config.calibre.path + '/metadata.db');
 var app = express();
 
 // Add Access-Control headers
