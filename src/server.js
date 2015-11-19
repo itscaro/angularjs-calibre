@@ -202,7 +202,7 @@ app.get(
         });
     });
 
-var Config =  JSON.parse(fs.readFileSync('./config.json'));
+var Config =  JSON.parse(fs.readFileSync(__dirname + '/config.json'));
 app.set('host', process.env.HOST || (Config.server && Config.server.host) || '127.0.0.1')
 app.set('port', process.env.PORT || (Config.server && Config.server.port) || 0)
 app.set('calibre.path', process.env.CALIBRE_PATH || (Config.calibre && Config.calibre.path) || "")
