@@ -6,7 +6,6 @@ var Sequelize = require('sequelize');
 var Promise = require("bluebird");
 require('sqlite3')
 
-var db = require('./calibre-database')(Config.calibre.path + '/metadata.db');
 var app = express();
 
 // Add Access-Control headers
@@ -209,6 +208,7 @@ app.set('port', process.env.PORT || (Config.server && Config.server.port) || 0)
 app.set('calibre.path', process.env.CALIBRE_PATH || (Config.calibre && Config.calibre.path) || "")
 app.set('x-powered-by', false)
 
+var db;
 var server = http.createServer(app).listen(app.get('port'), app.get('host'), function () {
     app.set('host', server.address().address)
     app.set('port', server.address().port)
@@ -223,6 +223,7 @@ var server = http.createServer(app).listen(app.get('port'), app.get('host'), fun
         }
     }
 
+    db = require('./calibre-database')(Config.calibre.path + '/metadata.db');   
     console.log('Express server listening on ', app.get('host'), app.get('port'))
     console.log('Calibre path ', app.get('calibre.path'))
 });
