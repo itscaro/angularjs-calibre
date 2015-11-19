@@ -1,13 +1,11 @@
 var http = require('http');
 var express = require('express');
-var querystring = require('querystring');
 var fs = require('fs');
 var lwip = require('lwip');
 var Sequelize = require('sequelize');
 var Promise = require("bluebird");
 require('sqlite3')
 
-var Config = require('./config');
 var db = require('./calibre-database')(Config.calibre.path + '/metadata.db');
 var app = express();
 
@@ -57,7 +55,7 @@ app.get(
             });
         });
     }
-);
+    );
 
 app.get(
     "/api/books/:id([0-9]+)/cover.jpg",
@@ -112,7 +110,7 @@ app.get(
             });
         });
     }
-);
+    );
 
 app.get(
     [
@@ -205,24 +203,32 @@ app.get(
         });
     });
 
-app.set('host', process.env.host || (Config.server && Config.server.host) || '127.0.0.1')
-app.set('port', process.env.port || (Config.server && Config.server.port) || 0)
+var Config =  JSON.parse(fs.readFileSync('./config.json'));
+app.set('host', process.env.HOST || (Config.server && Config.server.host) || '127.0.0.1')
+app.set('port', process.env.PORT || (Config.server && Config.server.port) || 0)
+app.set('calibre.path', process.env.CALIBRE_PATH || (Config.calibre && Config.calibre.path) || "")
 app.set('x-powered-by', false)
 
 var server = http.createServer(app).listen(app.get('port'), app.get('host'), function () {
     app.set('host', server.address().address)
     app.set('port', server.address().port)
 
-    Config.server = {
-        host: app.get('host'),
-        port: app.get('port')
+    Config = {
+        server: {
+            host: app.get('host'),
+            port: app.get('port')
+        },
+        calibre: {
+            path: app.get('calibre.path')
+        }
     }
 
     console.log('Express server listening on ', app.get('host'), app.get('port'))
+    console.log('Calibre path ', app.get('calibre.path'))
 });
 
 try {
-// Reply config to view through IPC, because port can be random
+    // For electron: Send config to view through IPC, because port can be random
     var ipc = require('ipc');
     ipc.on('config', function (event, arg) {
         event.returnValue = Config;

@@ -52,6 +52,12 @@
     },
     "github-electron/github-electron.d.ts": {
       "commit": "785c18f0c897c44ea7fa1a47f3bcb48110658520"
+    },
+    "validator/validator.d.ts": {
+      "commit": "c560ba6f0f55ce6f50e9d06e37b5bc0e2b9117b0"
+    },
+    "lodash/lodash.d.ts": {
+      "commit": "c560ba6f0f55ce6f50e9d06e37b5bc0e2b9117b0"
     }
   }
 }
