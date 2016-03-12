@@ -3,22 +3,22 @@ var shell = require('gulp-shell')
 
 // Run project
 gulp.task('run', shell.task([
-     'node node_modules/node-webkit-builder/bin/nwbuild -v 0.12.3 --run ./'
+     'node_modules/electron-prebuilt/dist/electron .'
 ]));
 
 // Compile project
 gulp.task('build-osx', shell.task([
-	 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.12.3 -p osx ./'
+	 'electron-packager ./ AngularJSCalibre --platform=darwin --arch=x64 --version=0.35.0'
 ]));
 
 // Compile project
 gulp.task('build-win', shell.task([
-	 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.12.3 -p win ./'
+	 'electron-packager ./ AngularJSCalibre --platform=win32 --arch=x64 --version=0.35.0'
 ]));
 
 // Compile project
 gulp.task('build-linux', shell.task([
-	 'node node_modules/node-webkit-builder/bin/nwbuild -v 0.12.3 -p linux32,linux64 ./'
+	 'electron-packager ./ AngularJSCalibre --platform=linux --arch=x64 --version=0.35.0'
 ]));
 
 // Compile project

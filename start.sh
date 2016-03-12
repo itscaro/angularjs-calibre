@@ -1,4 +1,4 @@
 #!/bin/sh
-
-cd /src
+printenv
+cd /app
 npm start

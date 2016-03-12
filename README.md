@@ -3,8 +3,14 @@ Fully based on Javascript for client and server sides.
 
 ## Installation
 
+### Build for node
 ```
   npm install
+```
+
+### Build for electron
+```
+aspm install --target 0.35.0 --arch x64
 ```
 
 ## Configuration
@@ -19,16 +25,20 @@ If there is no environment variable or no entry in configuration file, the host 
 ## Start the application
 With node
 ```
-  node index.js
+  npm start
 ```
 
-With forever
+With PM2
 ```
-  forever index.js
+  pm2 start src/index.js
+```
+
+With electron
+```
+  npm run electron
 ```
 
 ## Nginx as Proxy
-
 ```
 server {
        location /angular-calibre/ {
@@ -36,9 +46,3 @@ server {
        }
 }
 ```
-
-### Build for node
-nom install
-
-### Build for electron
-aspm install --target 0.34.0 --arch x64

@@ -5,6 +5,7 @@ cache/
 !.gitkeep
 node_modules/
 bower_components/
+src/app/lib/
 typings/
 tmp
 .DS_Store
