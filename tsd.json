@@ -30,7 +30,7 @@
       "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
     },
     "node/node.d.ts": {
-      "commit": "785c18f0c897c44ea7fa1a47f3bcb48110658520"
+      "commit": "d22516f9f089de107d7e7d5938566377370631f6"
     },
     "jquery/jquery.d.ts": {
       "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
@@ -58,6 +58,9 @@
     },
     "lodash/lodash.d.ts": {
       "commit": "c560ba6f0f55ce6f50e9d06e37b5bc0e2b9117b0"
+    },
+    "sqlite3/sqlite3.d.ts": {
+      "commit": "d22516f9f089de107d7e7d5938566377370631f6"
     }
   }
 }

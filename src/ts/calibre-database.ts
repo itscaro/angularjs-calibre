@@ -1,5 +1,3 @@
-/// <reference path="../../typings/sqlite3/sqlite3.d.ts" />
-/// <reference path="../../typings/sequelize/sequelize.d.ts" />
 import sqlite3 = require('sqlite3');
 import Sequelize = require('sequelize');
 

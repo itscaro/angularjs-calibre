@@ -1,8 +1,3 @@
-/// <reference path="../../typings/node/node.d.ts" />
-/// <reference path="../../typings/express/express.d.ts" />
-/// <reference path="../../typings/bluebird/bluebird.d.ts" />
-/// <reference path="../../typings/github-electron/github-electron.d.ts" />
-
 import http = require('http');
 import express = require('express');
 import querystring = require('querystring');
@@ -10,7 +5,7 @@ import fs = require('fs');
 import Promise = require('bluebird');
 import ApiModule = require('./api');
 
-var Config = JSON.parse(fs.readFileSync(__dirname + '/../config.json'));
+var Config = JSON.parse(fs.readFileSync(__dirname + '/../config.json').toString());
 var Api = new ApiModule.Api(Config);
 
 var app = express();
