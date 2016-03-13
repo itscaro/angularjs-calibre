@@ -54,10 +54,9 @@ var server = http.createServer(app).listen(app.get('port'), app.get('host'), fun
 // Electron app
 try {
     // Reply config to view through IPC, because port can be random
-    import ipc = require('ipc');
-    ipc.on('config', function (event, arg) {
+    require('electron').on('config', function (event, arg) {
         event.returnValue = Config;
     });
 } catch (e) {
-
+    console.warn("No module electron")
 }

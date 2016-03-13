@@ -49,7 +49,7 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
             $scope.loadPage = function (page) {
                 $scope.page = page
                 $rootScope.isLoading = true
-                apiService.getBooks(page, $scope.perpage, $scope.sort)
+                apiService.getBooks(page, $scope.perpage, $scope.sort, $scope.query)
                     .success(function (data) {
                         $scope.books = data.books
                         $scope.count = data.count

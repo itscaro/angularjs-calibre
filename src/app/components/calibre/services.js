@@ -1,45 +1,50 @@
 'use strict'
 
 angular.module('myApp.calibre.services', [])
-    .service('apiService', ['$rootScope', '$http', 'myAppConfig',
-        function ($rootScope, $http, myAppConfig) {
-            if (myAppConfig.server.host == '0.0.0.0') {
-                this.endpointApi = 'http://at.itscaro.com:' + myAppConfig.server.port
-            } else {
-                this.endpointApi = 'http://' + myAppConfig.server.host + ':' + myAppConfig.server.port
-            }
-            this.getBooks = function (page, limit, order, search) {
-                // Return promise for controller to use.
-                if (search) {
-                    search = '?title=' + search
-                } else {
-                    search = ''
-                }
-                if (order) {
-                    order = '?order=' + order
-                } else {
-                    order = ''
-                }
-                var _return = $http.get(this.endpointApi + '/api/books/page/' + page + '/' + limit + search + order);
+  .service('apiService', ['$rootScope', '$http', 'myAppConfig',
+    function($rootScope, $http, myAppConfig) {
+      if (myAppConfig === undefined) {
+        this.endpointApi = 'http://at.itscaro.com/angular-calibre/'
+      }
+      else if (myAppConfig.server.host == '0.0.0.0') {
+        this.endpointApi = 'http://at.itscaro.com:' + myAppConfig.server.port
+      } else {
+        this.endpointApi = 'http://' + myAppConfig.server.host + ':' + myAppConfig.server.port
+      }
+      console.debug("Endpoint", this.endpointApi)
 
-                $rootScope.$broadcast('DEBUG', _return);
+      this.getBooks = function(page, limit, order, search) {
+        // Return promise for controller to use.
+        if (search) {
+          search = '?title=' + search
+        } else {
+          search = ''
+        }
+        if (order) {
+          order = '?order=' + order
+        } else {
+          order = ''
+        }
+        var _return = $http.get(this.endpointApi + '/api/books/page/' + page + '/' + limit + search + order);
 
-                return _return;
-            };
+        $rootScope.$broadcast('DEBUG', _return);
 
-            this.getBook = function (id) {
-                var _return = $http.get(this.endpointApi + '/api/books/' + id);
+        return _return;
+      };
 
-                $rootScope.$broadcast('DEBUG', _return);
+      this.getBook = function(id) {
+        var _return = $http.get(this.endpointApi + '/api/books/' + id);
 
-                return _return;
-            };
+        $rootScope.$broadcast('DEBUG', _return);
 
-            this.getBookCover = function (id, height) {
-                return this.endpointApi + '/api/books/' + id + "/cover.jpg?height=" + height;
-            };
+        return _return;
+      };
 
-            this.getBookInFormat = function (id, format) {
-                return (this.endpointApi + '/api/books/' + id + '/download/' + format).toLocaleLowerCase();
-            };
-        }]);
+      this.getBookCover = function(id, height) {
+        return this.endpointApi + '/api/books/' + id + "/cover.jpg?height=" + height;
+      };
+
+      this.getBookInFormat = function(id, format) {
+        return (this.endpointApi + '/api/books/' + id + '/download/' + format).toLocaleLowerCase();
+      };
+    }]);

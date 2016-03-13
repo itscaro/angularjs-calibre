@@ -7,9 +7,9 @@
   "license": "GNU v2",
   "main": "src/electron.js",
   "scripts": {
-    "tsc": "tsc --module commonjs -p src/ts -w",
-    "postinstall": "bower install; tsd install",
-    "start": "concurrent \"node src/ts/server.js\" \"npm run tsc\"",
+    "tsc": "tsc --module commonjs -p src/server -w",
+    "postinstall": "bower install || tsd install",
+    "start": "concurrent \"node src/server/server.js\" \"npm run tsc\"",
     "electron-rebuild": "electron-rebuild",
     "electron": "electron src/electron.js",
     "pretest": "npm install",
@@ -23,35 +23,33 @@
     "build-css": "node-sass --include-path scss src/app/css/app.scss src/app/css/app.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
-  "config": {
-    "atom-shell": {
-      "version": "0.36.0"
-    }
-  },
   "dependencies": {
     "angular": "^1.5.0",
-    "bluebird": "^3.0.5",
-    "express": "^4.13.3",
+    "bluebird": "^3.3.4",
+    "express": "^4.13.4",
     "lwip": "^0.0.8",
-    "sequelize": "^3.14.0",
+    "sequelize": "^3.19.3",
     "sqlite3": "^3.1.1"
   },
   "devDependencies": {
-    "bower": "^1.6.5",
+    "bower": "^1.7.7",
     "concurrently": "^2.0.0",
-    "electron-prebuilt": "^0.36.0",
-    "electron-rebuild": "^1.0.2",
-    "http-server": "^0.8.5",
+    "electron-prebuilt": "^0.36.11",
+    "electron-rebuild": "^1.1.3",
+    "gulp": "^3.9.1",
+    "gulp-shell": "^0.5.2",
+    "http-server": "^0.9.0",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.15",
     "karma-chrome-launcher": "^0.2.1",
     "karma-firefox-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.6",
     "karma-junit-reporter": "^0.3.8",
+    "lite-server": "^2.1.0",
     "node-sass": "^3.4.2",
-    "nodemon": "^1.8.1",
+    "nodemon": "^1.9.1",
     "protractor": "^3.0.0",
-    "shelljs": "^0.5.3",
-    "typescript": "^1.6.2"
+    "shelljs": "^0.6.0",
+    "typescript": "^1.8.7"
   }
 }
