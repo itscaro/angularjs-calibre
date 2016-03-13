@@ -8,17 +8,17 @@ gulp.task('run', shell.task([
 
 // Compile project
 gulp.task('build-osx', shell.task([
-  'electron-packager ./ AngularJSCalibre --platform=darwin --arch=x64 --version=0.37.1'
+  'electron-packager ./ AngularJSCalibre --platform=darwin --arch=x64 --version=0.36.11'
 ]));
 
 // Compile project
 gulp.task('build-win', shell.task([
-  'electron-packager ./ AngularJSCalibre --platform=win32 --arch=x64 --version=0.37.1'
+  'electron-packager ./ AngularJSCalibre --platform=win32 --arch=x64 --version=0.36.11'
 ]));
 
 // Compile project
 gulp.task('build-linux', shell.task([
-  'electron-packager ./ AngularJSCalibre --platform=linux --arch=x64 --version=0.37.1'
+  'electron-packager ./ AngularJSCalibre --platform=linux --arch=x64 --version=0.36.11'
 ]));
 
 // Compile sqlite3 for electron
