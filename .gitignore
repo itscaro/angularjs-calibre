@@ -6,6 +6,8 @@ cache/
 node_modules/
 bower_components/
 src/app/lib/
+src/server/
+!src/server/*.ts
 typings/
 tmp
 .DS_Store
