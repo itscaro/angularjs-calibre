@@ -92,7 +92,9 @@ angular.module('myApp.calibre.controllers', ['ngDialog'])
     .directive('reader', ['apiService', function (apiService) {
         return function (scope, elm, attrs) {
             var url = apiService.getBookInFormat(attrs.bookId, attrs.bookFormat);
-            scope.Book = ePub((url + '.' + attrs.bookFormat).toLocaleLowerCase());
+            console.debug((url + '.' + attrs.bookFormat).toLocaleLowerCase());
+            var bookLoc = (url + '.' + attrs.bookFormat).toLocaleLowerCase();
+            scope.Book = ePub(bookLoc);
             scope.Book.renderTo(elm[0]);
         };
     }]);

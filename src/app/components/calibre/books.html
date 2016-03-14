@@ -1,34 +1,34 @@
 <section class="row">
-    <form ng-submit="searchall()">
-        <md-input-container flex>
-            <label>Search By Title</label>
-            <input type="text" ng-model="query">
-        </md-input-container>
-        <md-button class="md-raised">Search</md-button>
-    </form>
-    <div layout-gt-sm="row">
-        <md-input-container flex>
-            <label>Search by Title in this page</label>
-            <input type="text" ng-model="search.title">
-        </md-input-container>
+  <form ng-submit="searchall()">
+    <md-input-container flex>
+      <label>Search By Title</label>
+      <input type="text" ng-model="query">
+    </md-input-container>
+    <md-button class="md-raised">Search</md-button>
+  </form>
+  <div layout-gt-sm="row">
+    <md-input-container flex>
+      <label>Search by Title in this page</label>
+      <input type="text" ng-model="search.title">
+    </md-input-container>
 
-        <md-input-container flex>
-            <label>Search By Language</label>
-            <input type="text" ng-model="search.book.languagesName">
-        </md-input-container>
-    </div>
+    <md-input-container flex>
+      <label>Search By Language</label>
+      <input type="text" ng-model="search.book.languagesName">
+    </md-input-container>
+  </div>
 </section>
 
 <section class="row" ng-show="!isLoading">
-    Number of books: {{count}}
+  Number of books: {{count}}
 </section>
 
 <section class="row navigation" ng-include="templates.navigation.url" ng-show="!isLoading"></section>
 
 <section class="row" ng-show="!isLoading">
-    <article class="col-xs-6 col-sm-4 col-md-3 col-lg-2 portfolio-item" style="height: 225px;" ng-repeat="book in books | orderBy: '-id' | filter:search"
-    data-id="{{book.id}}" ng-include="templates.bookinfo.url">
-    </article>
+  <article class="col-xs-6 col-sm-4 col-md-3 col-lg-2 portfolio-item" style="height: 225px;" ng-repeat="book in books | orderBy: '-id' | filter:search"
+  data-id="{{book.id}}" ng-include="templates.bookinfo.url">
+  </article>
 </section>
 
 <section class="row navigation" ng-include="templates.navigation.url" ng-show="!isLoading"></section>

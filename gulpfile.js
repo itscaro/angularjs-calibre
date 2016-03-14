@@ -32,3 +32,15 @@ gulp.task('sqlite3-electron', shell.task(
     cwd: 'node_modules/sqlite3'
   }
 ));
+
+// Compile sqlite3 for node
+gulp.task('sqlite3-node', shell.task(
+  [
+    'npm install nan@~2.1.0 --save',
+    'npm run prepublish',
+    'node-gyp configure --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-win32-x64',
+    'node-gyp rebuild --arch=x64 --target_platform=win32 --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-win32-x64'
+  ], {
+    cwd: 'node_modules/sqlite3'
+  }
+));

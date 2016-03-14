@@ -4,7 +4,7 @@ angular.module('myApp.calibre.services', [])
   .service('apiService', ['$rootScope', '$http', 'myAppConfig',
     function($rootScope, $http, myAppConfig) {
       if (myAppConfig === undefined) {
-        this.endpointApi = 'http://at.itscaro.com/angular-calibre/'
+        this.endpointApi = 'http://at.itscaro.com/angular-calibre'
       }
       else if (myAppConfig.server.host == '0.0.0.0') {
         this.endpointApi = 'http://at.itscaro.com:' + myAppConfig.server.port
