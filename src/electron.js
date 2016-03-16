@@ -29,6 +29,7 @@ app.on('window-all-closed', function() {
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
   // Start server
+  // Server is required for local setup. The server can be run separately on another machine as well
   //require('./server/server');
 
   // Menu bar
