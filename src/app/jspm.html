@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Calibre browser</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/material-icons.css">
+
+    <script src="../../jspm_packages/system.js"></script>
+    <script src="../../jspm.config.js"></script>
+    <script>
+        System.import('app')
+            .catch(console.error.bind(console));
+    </script>
+</head>
+
+<body class="ng-cloak">
+    <header>
+        <md-button class="md-raised" ng-href="#/books">Home</md-button>
+    </header>
+
+    <div ui-view class="container-fluid"></div>
+
+    <div layout="row" layout-align="space-around">
+        <md-progress-circular md-mode="{{loadingMode}}" ng-show="isLoading"></md-progress-circular>
+    </div>
+
+    <footer>
+        <div><i ng-click="about()" class="material-icons pointer" style="cursor: pointer">&#xE88E;</i></div>
+    </footer>
+
+    <script src="js/epub/epub.min.js"></script>
+    <script src="js/epub/libs/zip.min.js"></script>
+
+</body>
+
+</html>

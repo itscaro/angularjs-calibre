@@ -51,5 +51,47 @@
     "protractor": "^3.0.0",
     "shelljs": "^0.6.0",
     "typescript": "^1.8.7"
+  },
+  "meta": {
+    "angular": {
+      "dev": [
+        "angular-ui-router",
+        "angular-animate",
+        "angular-aria",
+        "angular-bootstrap",
+        "angular-cookies",
+        "angular-material",
+        "bootstrap",
+        "ng-dialog"
+      ]
+    }
+  },
+  "jspm": {
+    "directories": {
+      "lib": "src"
+    },
+    "configFile": "jspm.config.js",
+    "dependencies": {
+      "angular-animate": "github:angular/bower-angular-animate@^1.5.0",
+      "angular-aria": "github:angular/bower-angular-aria@^1.5.0",
+      "angular-bootstrap": "github:angular-ui/bootstrap-bower@^1.2.4",
+      "angular-cookies": "github:angular/bower-angular-cookies@^1.5.0",
+      "angular-material": "github:angular/bower-material@^1.0.6",
+      "angular-ui-router": "github:angular-ui/ui-router@^0.2.18",
+      "bootstrap": "github:twbs/bootstrap@^3.3.6",
+      "css": "github:systemjs/plugin-css@^0.1.20",
+      "electron": "github:jaroslavrehorka/electron-jspm@^0.1.7",
+      "ng-dialog": "npm:ng-dialog@^0.5.9"
+    },
+    "devDependencies": {
+      "angular": "npm:angular@^1.5.0",
+      "bluebird": "npm:bluebird@^3.3.4",
+      "clean-css": "npm:clean-css@^3.4.10",
+      "express": "npm:express@^4.13.4",
+      "lwip": "npm:lwip@^0.0.8",
+      "sequelize": "npm:sequelize@^3.19.3",
+      "sqlite3": "npm:sqlite3@^3.1.1",
+      "typescript": "npm:typescript@^1.6.2"
+    }
   }
 }

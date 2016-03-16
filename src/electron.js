@@ -29,8 +29,8 @@ app.on('window-all-closed', function() {
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
   // Start server
-  require('./server/server');
-  
+  //require('./server/server');
+
   // Menu bar
   require('./menu')
 
@@ -41,7 +41,7 @@ app.on('ready', function() {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/app/electron.html')
+  mainWindow.loadURL('file://' + __dirname + '/app/jspm.html')
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools()

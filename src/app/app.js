@@ -16,7 +16,8 @@ try {
 }
 
 if (typeof Config != "undefined" && typeof process != "undefined") {
-  var Config = require("electron").ipcRenderer.sendSync('config');
+  import { ipc } from "electron";
+  var Config = ipc.sendSync('config');
 }
 
 angular.module('myApp', modulesToLoad)

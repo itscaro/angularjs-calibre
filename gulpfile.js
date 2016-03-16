@@ -44,3 +44,9 @@ gulp.task('sqlite3-node', shell.task(
     cwd: 'node_modules/sqlite3'
   }
 ));
+
+gulp.task('bundle', shell.task(
+  [
+    'jspm bundle app src/dist/app.js --inject'
+  ]
+));
