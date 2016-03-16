@@ -27,7 +27,7 @@ gulp.task('sqlite3-electron', shell.task(
     'npm install nan@~2.1.0 --save',
     'npm run prepublish',
     'node-gyp configure --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-win32-x64',
-    'node-gyp rebuild --target=0.36.11 --arch=x64 --target_platform=win32 --dist-url=https://atom.io/download/atom-shell --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-win32-x64'
+    'node-gyp rebuild --arch=x64 --target_platform=win32 --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-win32-x64 --target=0.36.11 --dist-url=https://atom.io/download/atom-shell'
   ], {
     cwd: 'node_modules/sqlite3'
   }
