@@ -9,7 +9,7 @@ export module ApiModule {
 
     constructor(config) {
       this.config = config
-      this.db = new CalibreDatabase.DB(this.config.calibre.path);
+      this.db = new CalibreDatabase.DB(this.config.calibre.path + "/metadata.db");
     }
 
     getBookById(req, res) {

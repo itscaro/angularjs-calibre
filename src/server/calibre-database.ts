@@ -15,7 +15,7 @@ module CalibreDatabase {
     public Tag;
     public BookTag;
     public Data;
-    
+
     constructor(dsn: string) {
       this.db = new Sequelize('', '', '', {
         //logging: false,
@@ -52,6 +52,9 @@ module CalibreDatabase {
             }
           },
           setterMethods: {
+            coverUrl: (value) => {
+              this.coverUrl = value
+            }
           }
         }
       );
