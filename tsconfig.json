@@ -11,5 +11,9 @@
   "exclude": [
     "node_modules",
     "jspm_packages"
-  ]
+  ],
+  "compileOnSave": true,
+  "atom": {
+      "rewriteTsconfig": true
+  }
 }
