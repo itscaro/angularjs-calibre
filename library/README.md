@@ -1,0 +1,1 @@
+test a libray with upload + reader for epub, maybe mobi too

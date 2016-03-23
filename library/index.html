@@ -1,0 +1,22 @@
+<html>
+
+<form method="POST" action="http://localhost:3050/upload" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" value="submit">
+</form>
+
+<select id="books">
+    <option value="--">Please select a book</option>
+</select>
+
+<div>
+    <div onclick="Book.prevPage();">‹</div>
+    <select id="toc"></select>
+    <div onclick="Book.nextPage();">›</div>
+</div>
+<div id="area"></div>
+
+<script src="app.js"></script>
+<script src="node_modules/epub.js/build/epub.min.js"></script>
+
+</html>
