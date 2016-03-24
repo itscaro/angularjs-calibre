@@ -22,7 +22,7 @@ app.get('/books', function(req, res){
             }
         })
 
-        res.status(200).type('application/json').end(JSON.stringify(_files))
+        res.json(_files)
     })
 })
 
@@ -44,7 +44,7 @@ app.post('/upload', upload.single('file'), function (req, res) {
                 res.redirect("back")
                 break
             case 'json':
-                res.status(200).type('application/json').end({ status: 'OK' })
+                res.json({ status: 'OK' })
                 break
         }
 
