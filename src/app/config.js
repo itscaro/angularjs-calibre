@@ -1,1 +1,1 @@
-var Config = {"server":{"host":"0.0.0.0","port":8099}}
+var Config = {"server":{"host":"angularjscalibre.fr.itscaro.me","port":80}}

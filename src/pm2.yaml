@@ -1,0 +1,5 @@
+apps:
+  - script   : ./src/server/server.js
+    name     : 'angularjs-calibre'
+    instances: 1
+    exec_mode: cluster

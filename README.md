@@ -30,7 +30,7 @@ With node
 
 With PM2
 ```
-  pm2 start src/index.js
+  pm2 start src/pm2.yaml
 ```
 
 With electron
@@ -45,4 +45,21 @@ server {
                proxy_pass http://127.0.0.1:8099/;
        }
 }
+```
+
+## Traefik as Proxy
+```
+[backends]
+  [backends.angularjscalibre]
+    [backends.angularjscalibre.circuitbreaker]
+      expression = "NetworkErrorRatio() > 0.5"
+    [backends.angularjscalibre.servers.server1]
+    url = "http://127.0.0.1:8099"
+    weight = 10
+
+[frontends]
+  [frontends.angularjscalibre]
+  backend = "angularjscalibre"
+    [frontends.angularjscalibre.routes.host]
+    rule = "Host:angularjscalibre.fr.itscaro.me"
 ```
