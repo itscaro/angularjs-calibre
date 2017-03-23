@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <style>
+        #navigation {
+            text-align: center;
+        }
+
+        #navigation div,
+        #navigation select {
+            margin: 5px 10px;
+            display: inline-block;
+        }
+
+        #navigation div:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="upload">
+        <p>Drag & Drop a file into this window to upload it</p>
+        <form method="POST" action="http://localhost:3050/upload" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <input type="submit" value="submit">
+        </form>
+    </div>
+
+    <select id="books">
+        <option value="--">Please select a book</option>
+    </select>
+
+    <div id="navigation">
+        <div id="prevPage">‹‹‹</div>
+        <select id="toc"></select>
+        <div id="nextPage">›››</div>
+    </div>
+    <div id="area"></div>
+
+    <script src="app.js"></script>
+    <script src="node_modules/epub.js/build/epub.min.js"></script>
+</body>
+
+</html>
