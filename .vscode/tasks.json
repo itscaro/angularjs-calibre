@@ -8,23 +8,9 @@
 
 {
 	"version": "0.1.0",
-	"command": "powershell",
+	"command": "tsc",
 	"isShellCommand": true,
+	"args": ["-p", "."],
 	"showOutput": "silent",
-	"args": [],
-    "tasks": [
-        {
-            "taskName": "Typescript Compilation",
-            "args": ["tsc -p ."],
-            "problemMatcher": "$tsc",
-            "suppressTaskName": true
-        },
-        {
-            "taskName": "Build Bundle",
-            "args": ["gulp bundle"],
-            "isBuildCommand": true,
-            "problemMatcher": "$gulp-tsc",
-            "suppressTaskName": true
-        }
-    ]
+	"problemMatcher": "$tsc"
 }

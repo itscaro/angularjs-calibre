@@ -9,6 +9,8 @@ jspm_packages/
 src/app/lib/
 src/server/
 !src/server/*.ts
+library/api/
+!libray/api/*.ts
 typings/
 tmp
 .DS_Store

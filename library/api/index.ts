@@ -29,7 +29,7 @@ app.get('/books', function(req, res){
 app.post('/upload', upload.single('file'), function (req, res) {
     console.log('/upload', req.file)
 
-    fs.rename(req.file.path, __dirname + "/../books/" + req.file.originalname, function(err, data) {
+    fs.rename(req.file.path, __dirname + "/../books/" + req.file.originalname, function(err) {
          epubParser.open(__dirname + "/../books/" + req.file.originalname, function (err, epubData) {
             if(err) {
                 console.log(err)
